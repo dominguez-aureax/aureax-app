@@ -137,6 +137,8 @@ class _LoginState extends State<Login> {
                   textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyText1)
                 ),
                 onPressed: () {
+                  print('Email: ' + emailController!.text);
+                  print('Password: ' + passwordController!.text);
                   print('Sign in with Email proceeding');
                 },
                 child: Text('Sign in with Email',),
