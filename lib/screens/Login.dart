@@ -122,6 +122,7 @@ class _LoginState extends State<Login> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+              //TODO: Use Authentication ApplicationState
               child: ElevatedButton(
                 style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),

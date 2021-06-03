@@ -27,7 +27,19 @@ class App extends StatelessWidget {
       title: 'Aureax',
       initialRoute: '/',
       routes: {
-        '/': (context) => Login(),
+        '/': (context) => Consumer<ApplicationState>(
+          builder :(context, appState, _) => Authentication(
+            loginState: appState.loginState, 
+            email: appState.email, 
+            startLoginFlow: appState.startLoginFlow, 
+            verifyEmail: appState.verifyEmail, 
+            signInWithEmailAndPassword: appState.signInWithEmailAndPassword, 
+            cancelRegistration: appState.cancelRegistration, 
+            registerAccount: appState.registerAccount, 
+            signOut: appState.signOut,
+          )
+        ),
+        '/login': (context) => Login(),
         '/signup': (context) => SignUp(),
       },
       theme: ThemeData(

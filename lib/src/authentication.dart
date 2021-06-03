@@ -44,12 +44,31 @@ class Authentication extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scaffoldKey = GlobalKey<ScaffoldState>();
     switch (loginState) {
       default:
-        return Row(
-          children: [
-            Text('Internal error, this shouldn\'t happen...'),
-          ],
+        // TODO: make custom error screen/widget
+        return Scaffold(
+          key: scaffoldKey,
+          resizeToAvoidBottomInset: false,
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,  
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Internal error, this shouldn\'t happen...'),
+                  ],
+                ),
+              ]
+            ),
+          ),
         );
     }
   }
