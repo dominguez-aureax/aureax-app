@@ -20,6 +20,7 @@ class Authentication extends StatelessWidget {
     required this.signOut,
   });
 
+  //state of authentication
   final ApplicationLoginState loginState;
   final String? email;
   final void Function() startLoginFlow;
