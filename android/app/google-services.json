@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "851516882862",
+    "project_id": "aureax-app",
+    "storage_bucket": "aureax-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851516882862:android:ad64d57b55eb62e437523f",
+        "android_client_info": {
+          "package_name": "com.example.aureax_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851516882862-8trl446ib7e75jer2h9f0ml3b2pnp5r9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj8IFpCBTNA2GN2kZnludOXatAPRmkTDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851516882862-8trl446ib7e75jer2h9f0ml3b2pnp5r9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "851516882862-5eeluo8h3n7fg3lc73cffmtvdhekqf9r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.aureaxApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
