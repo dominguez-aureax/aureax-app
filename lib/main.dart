@@ -175,7 +175,7 @@ class ApplicationState extends ChangeNotifier {
       'pasword': password,
       'name': displayName,
       'dateRegistered': DateTime.now().millisecondsSinceEpoch,
-      'uderId': FirebaseAuth.instance.currentUser!.uid,
+      'userId': FirebaseAuth.instance.currentUser!.uid,
     });
   }
 }
