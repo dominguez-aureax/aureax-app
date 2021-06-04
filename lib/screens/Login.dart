@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:sign_button/sign_button.dart';
 
+import './SignUp.dart';
+
+
 class Login extends StatefulWidget {
-  Login({Key? key}) : super (key: key);
+  final Function(String, String, String, void Function(Exception)) startRegister;
+  Login({
+    Key? key,
+    required void Function(String, String, void Function(Exception)) startLogin,
+    required this.startRegister,
+  }) : super(key: key);
+  //Login({Key? key}) : super (key: key);
 
   @override
   _LoginState createState() => _LoginState();
@@ -23,6 +32,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       body: Container(
         width: double.infinity,
@@ -121,6 +131,7 @@ class _LoginState extends State<Login> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+              //TODO: Use Authentication ApplicationState
               child: ElevatedButton(
                 style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
@@ -137,6 +148,8 @@ class _LoginState extends State<Login> {
                   textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyText1)
                 ),
                 onPressed: () {
+                  print('Email: ' + emailController!.text);
+                  print('Password: ' + passwordController!.text);
                   print('Sign in with Email proceeding');
                 },
                 child: Text('Sign in with Email',),
@@ -168,7 +181,11 @@ class _LoginState extends State<Login> {
                   GestureDetector(
                     onTap: () {
                       print('Sign Up Screen Router');
-                      Navigator.pushNamed(context, '/signup');
+                      Navigator.push(context,
+                        MaterialPageRoute(
+                          builder:  (context) => SignUp(registerAccount: widget.startRegister)
+                        )
+                      );
                     },
                     child: Text(
                       'Sign Up!',
