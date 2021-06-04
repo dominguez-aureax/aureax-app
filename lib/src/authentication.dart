@@ -1,3 +1,4 @@
+import 'package:aureax_app/screens/Login.dart';
 import 'package:flutter/material.dart';
 
 enum ApplicationLoginState {
@@ -46,6 +47,9 @@ class Authentication extends StatelessWidget {
   Widget build(BuildContext context) {
     final scaffoldKey = GlobalKey<ScaffoldState>();
     switch (loginState) {
+      case ApplicationLoginState.loggedIn:
+      case ApplicationLoginState.loggedOut:
+        return Login(startLogin: signInWithEmailAndPassword, startRegister: registerAccount);
       default:
         // TODO: make custom error screen/widget
         return Scaffold(
@@ -56,7 +60,7 @@ class Authentication extends StatelessWidget {
             height: double.infinity,  
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(

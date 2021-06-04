@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-// Screens
-import 'screens/Login.dart';
-import 'screens/SignUp.dart';
-
 import 'src/authentication.dart';
 
 void main() {
@@ -25,6 +21,19 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Aureax',
+      home: Consumer<ApplicationState>(
+        builder: (context, appState, _) => Authentication(
+          loginState: appState.loginState,
+          email: appState.email,
+          startLoginFlow: appState.startLoginFlow,
+          verifyEmail: appState.verifyEmail,
+          signInWithEmailAndPassword: appState.signInWithEmailAndPassword,
+          cancelRegistration: appState.cancelRegistration,
+          registerAccount: appState.registerAccount,
+          signOut: appState.signOut,
+        ),
+      ),
+      /*
       initialRoute: '/',
       routes: {
         '/': (context) => Consumer<ApplicationState>(
@@ -42,6 +51,7 @@ class App extends StatelessWidget {
         '/login': (context) => Login(),
         '/signup': (context) => SignUp(),
       },
+      */
       theme: ThemeData(
         // Define the default brightness and colors
         brightness: Brightness.dark,

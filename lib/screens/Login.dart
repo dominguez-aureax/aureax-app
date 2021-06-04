@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sign_button/sign_button.dart';
 
 class Login extends StatefulWidget {
-  Login({Key? key}) : super (key: key);
+  Login({
+    Key? key,
+    required void Function(String, String, void Function(Exception)) startLogin,
+    required Function(String, String, String, void Function(Exception)) startRegister,
+  }) : super(key: key);
+  //Login({Key? key}) : super (key: key);
 
   @override
   _LoginState createState() => _LoginState();
