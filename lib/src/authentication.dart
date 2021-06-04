@@ -49,7 +49,10 @@ class Authentication extends StatelessWidget {
     switch (loginState) {
       case ApplicationLoginState.loggedIn:
       case ApplicationLoginState.loggedOut:
-        return Login(startLogin: signInWithEmailAndPassword, startRegister: registerAccount);
+        return Login(
+          startLogin: signInWithEmailAndPassword, 
+          startRegister: registerAccount
+        );
       default:
         // TODO: make custom error screen/widget
         return Scaffold(

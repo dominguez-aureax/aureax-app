@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sign_button/sign_button.dart';
 
+import './SignUp.dart';
+
+
 class Login extends StatefulWidget {
+  final Function(String, String, String, void Function(Exception)) startRegister;
   Login({
     Key? key,
     required void Function(String, String, void Function(Exception)) startLogin,
-    required Function(String, String, String, void Function(Exception)) startRegister,
+    required this.startRegister,
   }) : super(key: key);
   //Login({Key? key}) : super (key: key);
 
@@ -177,7 +181,11 @@ class _LoginState extends State<Login> {
                   GestureDetector(
                     onTap: () {
                       print('Sign Up Screen Router');
-                      Navigator.pushNamed(context, '/signup');
+                      Navigator.push(context,
+                        MaterialPageRoute(
+                          builder:  (context) => SignUp(registerAccount: widget.startRegister)
+                        )
+                      );
                     },
                     child: Text(
                       'Sign Up!',

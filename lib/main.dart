@@ -1,5 +1,6 @@
 // Libraries
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -152,6 +153,7 @@ class ApplicationState extends ChangeNotifier {
       var credential = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
         credential.user!.updateProfile(displayName: displayName);
+      addClientToAccounts(email, displayName, password);
     } on FirebaseAuthException catch (e) {
       errorCallback(e);
     }
@@ -161,5 +163,19 @@ class ApplicationState extends ChangeNotifier {
     print('Signing Out...');
     FirebaseAuth.instance.signOut();
     print('Sign Out complete!');
+  }
+
+  Future<DocumentReference> addClientToAccounts(String email, String displayName, String password) {
+    if (_loginState != ApplicationLoginState.loggedIn) {
+      throw Exception ('Must be logged in');
+    }
+
+    return FirebaseFirestore.instance.collection('accounts').add({
+      'email': email,
+      'pasword': password,
+      'name': displayName,
+      'dateRegistered': DateTime.now().millisecondsSinceEpoch,
+      'uderId': FirebaseAuth.instance.currentUser!.uid,
+    });
   }
 }

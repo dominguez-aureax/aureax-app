@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:aureax_app/widget/Button.dart';
+import '../widget/ShowError.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({Key? key}) : super (key: key);
+  final Function(String, String, String, void Function(Exception)) registerAccount;
+  SignUp({
+    Key? key,
+    required this.registerAccount,
+  }) : super(key: key);
+  //SignUp({Key? key}) : super (key: key);
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -22,11 +28,17 @@ class _SignUpState extends State<SignUp> {
   @override 
   void initState() {
     super.initState();
+    nameController = TextEditingController();
+    companyController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    passwordConfirmationController = TextEditingController();
   }
 
   @override 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       body: Container(
         width: double.infinity,
@@ -121,7 +133,7 @@ class _SignUpState extends State<SignUp> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: TextFormField(
-                      controller: emailController,
+                      controller: passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: 'Password',
@@ -137,7 +149,7 @@ class _SignUpState extends State<SignUp> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: TextFormField(
-                      controller: emailController,
+                      controller: passwordConfirmationController,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: 'Password',
@@ -196,6 +208,11 @@ class _SignUpState extends State<SignUp> {
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: createButton(
                 onPressed: () {
+                  print('Full Name: ' + nameController!.text);
+                  print('Company: ' + companyController!.text);
+                  print('Email Address: ' + emailController!.text);
+                  print('Password: ' + passwordController!.text);
+                  validateRegistration();
                   print('TODO: sign up procedure');
                 }, 
                 child: Text('Sign Up'), 
@@ -206,5 +223,19 @@ class _SignUpState extends State<SignUp> {
         )
       ),
     );
+  }
+
+  void validateRegistration () {
+    if(emailController!.text != '' && nameController!.text != '' && passwordController!.text != ''){
+      widget.registerAccount(
+        emailController!.text, 
+        nameController!.text, 
+        passwordController!.text,
+        (e) => 
+          showError(context, 'Failed to create account', e)
+      );
+    } else {
+      showError(context, 'A field needs to be edited', Exception());
+    }
   }
 }
