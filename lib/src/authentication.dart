@@ -24,10 +24,10 @@ class Authentication extends StatelessWidget {
         title: 'Aureax',
         initialRoute: '/',
         routes: <String, WidgetBuilder>{
-          '/': (BuildContext context) => AuthenticationWrapper(),
-          '/login': (BuildContext context) => Login(),
-          '/panel': (BuildContext context) => Panel(),
-          '/signup': (BuildContext context) => SignUp(),
+          '/': (context) => AuthenticationWrapper(),
+          '/login': (context) => Login(),
+          '/panel': (context) => Panel(),
+          '/signup': (context) => SignUp(),
         },
         theme: ThemeData(
           brightness: Brightness.dark,

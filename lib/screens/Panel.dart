@@ -55,7 +55,6 @@ class _PanelState extends State<Panel> {
                   createButton(
                     onPressed: () {
                       context.read<AuthenticationService>().signOut();
-                      Navigator.pushNamed(context, 'login');
                     }, 
                     child: Text('Log Out'), 
                     context: context
