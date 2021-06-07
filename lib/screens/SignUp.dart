@@ -1,13 +1,14 @@
+import 'package:aureax_app/src/authentication.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:aureax_app/widget/Button.dart';
 import '../widget/ShowError.dart';
 
 class SignUp extends StatefulWidget {
-  final Function(String, String, String, void Function(Exception)) registerAccount;
   SignUp({
     Key? key,
-    required this.registerAccount,
   }) : super(key: key);
   //SignUp({Key? key}) : super (key: key);
 
@@ -213,7 +214,12 @@ class _SignUpState extends State<SignUp> {
                   print('Email Address: ' + emailController!.text);
                   print('Password: ' + passwordController!.text);
                   validateRegistration();
-                  print('TODO: sign up procedure');
+                  print('user is registered and signed in');
+                  context.read<AuthenticationService>().signUp(
+                    emailController!.text, 
+                    passwordController!.text, 
+                    nameController!.text,
+                  );
                 }, 
                 child: Text('Sign Up'), 
                 context: context,
@@ -227,13 +233,10 @@ class _SignUpState extends State<SignUp> {
 
   void validateRegistration () {
     if(emailController!.text != '' && nameController!.text != '' && passwordController!.text != ''){
-      widget.registerAccount(
-        emailController!.text, 
-        nameController!.text, 
-        passwordController!.text,
-        (e) => 
-          showError(context, 'Failed to create account', e)
-      );
+      print('---SIGN UP---');
+      print('Email - $emailController');
+      print('Name - $nameController');
+      print('password - $passwordController');
     } else {
       showError(context, 'A field needs to be edited', Exception());
     }

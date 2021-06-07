@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Panel extends StatefulWidget {
@@ -9,6 +10,7 @@ class Panel extends StatefulWidget {
 
 class _PanelState extends State<Panel> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  User ? user = FirebaseAuth.instance.currentUser;
 
   @override void initState() {
     super.initState();
@@ -16,6 +18,7 @@ class _PanelState extends State<Panel> {
   
   @override
   Widget build(BuildContext context) {
+    checkVerification();
     return Scaffold(
       key: scaffoldKey,
       body: Container(
@@ -34,7 +37,7 @@ class _PanelState extends State<Panel> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'TODO: PANEL SCREEN'
+                    'USER: ${user!.displayName}'
                   ),
                 ],
               ),
@@ -43,5 +46,12 @@ class _PanelState extends State<Panel> {
         )
       )
     );
+  }
+
+  void checkVerification() async {
+    if (user != null && user!.emailVerified) {
+      print('sending verification...');
+      await user!.sendEmailVerification();
+    }
   }
 }

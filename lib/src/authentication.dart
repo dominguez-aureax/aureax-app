@@ -1,82 +1,96 @@
-import 'package:aureax_app/screens/Login.dart';
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-enum ApplicationLoginState {
-  loggedOut,
-  emailAddress,
-  register,
-  password,
-  loggedIn,
-}
-
+import '../screens/Login.dart';
+import '../screens/Panel.dart';
+import '../screens/SignUp.dart';
 class Authentication extends StatelessWidget {
-  const Authentication({
-    required this.loginState,
-    required this.email,
-    required this.startLoginFlow,
-    required this.verifyEmail,
-    required this.signInWithEmailAndPassword,
-    required this.cancelRegistration,
-    required this.registerAccount,
-    required this.signOut,
-  });
-
-  //state of authentication
-  final ApplicationLoginState loginState;
-  final String? email;
-  final void Function() startLoginFlow;
-  final void Function(
-    String email,
-    void Function(Exception e) error,
-  ) verifyEmail;
-  final void Function(
-    String email,
-    String password,
-    void Function(Exception e) error,
-  ) signInWithEmailAndPassword;
-  final void Function() cancelRegistration;
-  final void Function(
-    String email,
-    String displayName,
-    String password,
-    void Function(Exception e) error,
-  ) registerAccount;
-  final void Function () signOut;
-
   @override
   Widget build(BuildContext context) {
-    final scaffoldKey = GlobalKey<ScaffoldState>();
-    switch (loginState) {
-      case ApplicationLoginState.loggedIn:
-      case ApplicationLoginState.loggedOut:
-        return Login(
-          startLogin: signInWithEmailAndPassword, 
-          startRegister: registerAccount
-        );
-      default:
-        // TODO: make custom error screen/widget
-        return Scaffold(
-          key: scaffoldKey,
-          resizeToAvoidBottomInset: false,
-          body: Container(
-            width: double.infinity,
-            height: double.infinity,  
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Internal error, this shouldn\'t happen...'),
-                  ],
-                ),
-              ]
-            ),
-          ),
-        );
+    return MultiProvider(
+      providers: [
+        Provider<AuthenticationService>(
+          create: (_) => AuthenticationService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) => context.read<AuthenticationService>().authStateChanges, 
+          initialData: null,
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Aureax',
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: <String, WidgetBuilder>{
+          '/': (BuildContext context) => AuthenticationWrapper(),
+          '/login': (BuildContext context) => Login(),
+          '/panel': (BuildContext context) => Panel(),
+          '/signup': (BuildContext context) => SignUp(),
+        },
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          backgroundColor: const Color(0xFF232931),
+          primaryColor: const Color(0xFFeeeeee),
+          accentColor: const Color(0xFF45aff0),
+          fontFamily: GoogleFonts.roboto().fontFamily,
+          textTheme: TextTheme(
+            headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+            subtitle1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+            bodyText1: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+          )
+        )
+      ),
+    );
+  }
+}
+
+class AuthenticationWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // final scaffoldKey = GlobalKey<ScaffoldState>();
+    final firebaseUser = context.watch<User?>();
+
+    if (firebaseUser != null) {
+      return Panel();
+    } 
+    return Login();
+  }
+}
+
+class AuthenticationService {
+  final FirebaseAuth _firebaseAuth;
+
+  AuthenticationService(this._firebaseAuth);
+
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+
+  Future<String> signIn(
+    String email, 
+    String password
+  ) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      return 'Signed In';
+    } on FirebaseAuthException catch (e) {
+      return '$e.message';
+    }
+  }
+
+  Future<String> signUp(
+    String email, 
+    String password,
+    String displayName,
+  ) async {
+    try {
+      var credential = await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password);
+      credential.user!.updateProfile(displayName: displayName);
+      return 'Signed Up';
+    } on FirebaseAuthException catch (e) {
+      return '$e.message';
     }
   }
 }

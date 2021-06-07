@@ -1,58 +1,32 @@
 // Libraries
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:aureax_app/screens/SignUp.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import 'src/authentication.dart';
 
-void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => ApplicationState(),
-      builder: (context, _) => App(),
-    ),
-  );
+import 'screens/Login.dart';
+import 'screens/Panel.dart';
+import 'screens/SignUp.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(Authentication());
 }
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Aureax',
-      home: Consumer<ApplicationState>(
-        builder: (context, appState, _) => Authentication(
-          loginState: appState.loginState,
-          email: appState.email,
-          startLoginFlow: appState.startLoginFlow,
-          verifyEmail: appState.verifyEmail,
-          signInWithEmailAndPassword: appState.signInWithEmailAndPassword,
-          cancelRegistration: appState.cancelRegistration,
-          registerAccount: appState.registerAccount,
-          signOut: appState.signOut,
-        ),
-      ),
-      /*
       initialRoute: '/',
-      routes: {
-        '/': (context) => Consumer<ApplicationState>(
-          builder :(context, appState, _) => Authentication(
-            loginState: appState.loginState, 
-            email: appState.email, 
-            startLoginFlow: appState.startLoginFlow, 
-            verifyEmail: appState.verifyEmail, 
-            signInWithEmailAndPassword: appState.signInWithEmailAndPassword, 
-            cancelRegistration: appState.cancelRegistration, 
-            registerAccount: appState.registerAccount, 
-            signOut: appState.signOut,
-          )
-        ),
-        '/login': (context) => Login(),
-        '/signup': (context) => SignUp(),
+      routes: <String, WidgetBuilder>{
+        '/': (BuildContext context) => Login(),
+        '/signup': (BuildContext context) => SignUp(),
+        '/panel': (BuildContext context) => Panel(),
       },
-      */
       theme: ThemeData(
         // Define the default brightness and colors
         brightness: Brightness.dark,
@@ -71,6 +45,7 @@ class App extends StatelessWidget {
 }
 
 // Provides change notification to its listeners.(A form of Observable)
+/* 
 class ApplicationState extends ChangeNotifier {
   ApplicationState() {
     init();
@@ -143,22 +118,6 @@ class ApplicationState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void registerAccount(
-    String email, 
-    String displayName,
-    String password,
-    void Function(FirebaseAuthException e) errorCallback
-  ) async {
-    try {
-      var credential = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
-        credential.user!.updateProfile(displayName: displayName);
-      addClientToAccounts(email, displayName, password);
-    } on FirebaseAuthException catch (e) {
-      errorCallback(e);
-    }
-  }
-
   void signOut() {
     print('Signing Out...');
     FirebaseAuth.instance.signOut();
@@ -179,3 +138,4 @@ class ApplicationState extends ChangeNotifier {
     });
   }
 }
+*/
