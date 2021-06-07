@@ -1,13 +1,13 @@
+import 'package:aureax_app/src/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:aureax_app/widget/Button.dart';
 import '../widget/ShowError.dart';
 
 class SignUp extends StatefulWidget {
-  final Function(String, String, String, void Function(Exception)) registerAccount;
   SignUp({
     Key? key,
-    required this.registerAccount,
   }) : super(key: key);
   //SignUp({Key? key}) : super (key: key);
 
@@ -208,12 +208,17 @@ class _SignUpState extends State<SignUp> {
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: createButton(
                 onPressed: () {
-                  print('Full Name: ' + nameController!.text);
-                  print('Company: ' + companyController!.text);
-                  print('Email Address: ' + emailController!.text);
-                  print('Password: ' + passwordController!.text);
+                  debugPrint('Full Name: ' + nameController!.text);
+                  debugPrint('Company: ' + companyController!.text);
+                  debugPrint('Email Address: ' + emailController!.text);
+                  debugPrint('Password: ' + passwordController!.text);
                   validateRegistration();
-                  print('TODO: sign up procedure');
+                  debugPrint('user is registered and signed in');
+                  context.read<AuthenticationService>().signUp(
+                    emailController!.text, 
+                    passwordController!.text, 
+                    nameController!.text,
+                  );
                 }, 
                 child: Text('Sign Up'), 
                 context: context,
@@ -227,13 +232,10 @@ class _SignUpState extends State<SignUp> {
 
   void validateRegistration () {
     if(emailController!.text != '' && nameController!.text != '' && passwordController!.text != ''){
-      widget.registerAccount(
-        emailController!.text, 
-        nameController!.text, 
-        passwordController!.text,
-        (e) => 
-          showError(context, 'Failed to create account', e)
-      );
+      print('---SIGN UP---');
+      print('Email - $emailController');
+      print('Name - $nameController');
+      print('password - $passwordController');
     } else {
       showError(context, 'A field needs to be edited', Exception());
     }
