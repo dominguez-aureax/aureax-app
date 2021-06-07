@@ -3,8 +3,6 @@ import 'package:sign_button/sign_button.dart';
 import 'package:provider/provider.dart';
 
 import '../src/authentication.dart';
-import './SignUp.dart';
-
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super (key: key);
@@ -127,7 +125,6 @@ class _LoginState extends State<Login> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-              //TODO: Use Authentication ApplicationState
               child: ElevatedButton(
                 style: ButtonStyle(
                   foregroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
@@ -161,7 +158,7 @@ class _LoginState extends State<Login> {
                 buttonType: ButtonType.google,
                 btnText: 'Sign in with Google',
                 onPressed: () {
-                  print('Sign in with Google proceeding');
+                  debugPrint('Sign in with Google proceeding');
                 },
                 buttonSize: ButtonSize.medium,
                 width: double.infinity,
@@ -181,11 +178,7 @@ class _LoginState extends State<Login> {
                   GestureDetector(
                     onTap: () {
                       print('Sign Up Screen Router');
-                      Navigator.push(context,
-                        MaterialPageRoute(
-                          builder:  (context) => SignUp()
-                        )
-                      );
+                      Navigator.pushNamed(context,'/signup');
                     },
                     child: Text(
                       'Sign Up!',
@@ -208,7 +201,7 @@ class _LoginState extends State<Login> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    print('TODO: offer referral process');
+                    debugPrint('TODO: offer referral process');
                   },
                   child: Text(
                     'Enter code/email.',

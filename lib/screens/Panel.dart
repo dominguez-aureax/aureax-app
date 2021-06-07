@@ -1,5 +1,9 @@
+import 'package:aureax_app/src/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../widget/Button.dart';
 
 class Panel extends StatefulWidget {
   Panel({Key? key}) : super(key: key);
@@ -41,6 +45,23 @@ class _PanelState extends State<Panel> {
                   ),
                 ],
               ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  createButton(
+                    onPressed: () {
+                      context.read<AuthenticationService>().signOut();
+                      Navigator.pushNamed(context, 'login');
+                    }, 
+                    child: Text('Log Out'), 
+                    context: context
+                  ),
+                ],
+              )
             )
           ],
         )

@@ -22,7 +22,6 @@ class Authentication extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Aureax',
-        debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: <String, WidgetBuilder>{
           '/': (BuildContext context) => AuthenticationWrapper(),
@@ -75,6 +74,7 @@ class AuthenticationService {
       await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       return 'Signed In';
     } on FirebaseAuthException catch (e) {
+      debugPrint(e.message);
       return '$e.message';
     }
   }
@@ -92,5 +92,11 @@ class AuthenticationService {
     } on FirebaseAuthException catch (e) {
       return '$e.message';
     }
+  }
+
+  void signOut() async {
+    debugPrint('Signing out...');
+    await FirebaseAuth.instance.signOut();
+    debugPrint('Sign Out Complete!!!');
   }
 }

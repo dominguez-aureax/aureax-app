@@ -1,5 +1,4 @@
 import 'package:aureax_app/src/authentication.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -209,12 +208,12 @@ class _SignUpState extends State<SignUp> {
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: createButton(
                 onPressed: () {
-                  print('Full Name: ' + nameController!.text);
-                  print('Company: ' + companyController!.text);
-                  print('Email Address: ' + emailController!.text);
-                  print('Password: ' + passwordController!.text);
+                  debugPrint('Full Name: ' + nameController!.text);
+                  debugPrint('Company: ' + companyController!.text);
+                  debugPrint('Email Address: ' + emailController!.text);
+                  debugPrint('Password: ' + passwordController!.text);
                   validateRegistration();
-                  print('user is registered and signed in');
+                  debugPrint('user is registered and signed in');
                   context.read<AuthenticationService>().signUp(
                     emailController!.text, 
                     passwordController!.text, 
