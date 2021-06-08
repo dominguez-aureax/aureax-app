@@ -218,7 +218,9 @@ class _SignUpState extends State<SignUp> {
                     emailController!.text, 
                     passwordController!.text, 
                     nameController!.text,
+                    companyController!.text,
                   );
+                  Navigator.pop(context);
                 }, 
                 child: Text('Sign Up'), 
                 context: context,

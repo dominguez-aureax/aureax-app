@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import '../screens/Login.dart';
 import '../screens/Panel.dart';
 import '../screens/SignUp.dart';
+
+import './database.dart';
 class Authentication extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -61,10 +63,15 @@ class AuthenticationWrapper extends StatelessWidget {
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
+  final DatabaseReference db = DatabaseReference();
 
   AuthenticationService(this._firebaseAuth);
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+
+  String? getUser() {
+    return _firebaseAuth.currentUser!.displayName;
+  }
 
   Future<String> signIn(
     String email, 
@@ -83,11 +90,14 @@ class AuthenticationService {
     String email, 
     String password,
     String displayName,
+    String company,
   ) async {
     try {
       var credential = await _firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password);
       credential.user!.updateProfile(displayName: displayName);
+      String userId = credential.user!.uid;
+      db.addClient(userId, email, password, displayName, company);
       return 'Signed Up';
     } on FirebaseAuthException catch (e) {
       return '$e.message';
