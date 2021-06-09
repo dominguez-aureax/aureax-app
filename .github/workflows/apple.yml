@@ -1,27 +1,30 @@
 name: Test Apple
 on: [push]
 
-jobs: 
+jobs:
   test-apple:
     runs-on: macos-latest
 
-    steps: 
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with: 
+        with:
           persist-credentials: false
 
-      - name: Setup Java & Flutter
+      - name: Select Xcode version
+        run: sudo xcode-select -s '/Applications/Xcode_11.3.app/Contents/Developer'
+
+      - name: Setup Java
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: 13
-      
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v1
         with:
           channel: stable
-      
+
       - name: Install dependencies
         run: flutter pub get
 
@@ -34,5 +37,6 @@ jobs:
       # - name: Run tests
       #   run: flutter test
 
-      - name: Build Apple
-        run: flutter build apk && flutter build ios --release --no-codesign
+      # Needs to be ran on a macOS first
+      # - name: Build Apple
+      #   run: flutter build ios --release --no-codesign
