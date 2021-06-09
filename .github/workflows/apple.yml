@@ -30,5 +30,4 @@ jobs:
       #   run: flutter test
 
       - name: Build Apple
-        run: flutter build apk
-        run: flutter build ios --release --no-codesign
+        run: flutter build apk && flutter build ios --release --no-codesign
