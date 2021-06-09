@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/Login.dart';
-import '../screens/Panel.dart';
-import '../screens/SignUp.dart';
+import '../screens/login.dart';
+import '../screens/panel.dart';
+import '../screens/sign_up.dart';
 
 import './database.dart';
 class Authentication extends StatelessWidget {
@@ -52,7 +52,7 @@ class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final scaffoldKey = GlobalKey<ScaffoldState>();
-    final firebaseUser = context.watch<User?>();
+    var firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
       return Panel();
@@ -95,9 +95,9 @@ class AuthenticationService {
     try {
       var credential = await _firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password);
-      credential.user!.updateProfile(displayName: displayName);
-      String userId = credential.user!.uid;
-      db.addClient(userId, email, password, displayName, company);
+      await credential.user!.updateProfile(displayName: displayName);
+      var userId = credential.user!.uid;
+      await db.addClient(userId, email, password, displayName, company);
       return 'Signed Up';
     } on FirebaseAuthException catch (e) {
       return '$e.message';

@@ -2,8 +2,8 @@ import 'package:aureax_app/src/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:aureax_app/widget/Button.dart';
-import '../widget/ShowError.dart';
+import 'package:aureax_app/widget/button.dart';
+import '../widget/show_error.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({
@@ -58,7 +58,7 @@ class _SignUpState extends State<SignUp> {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
                     child: GestureDetector(
                       onTap: () {
-                        print('HomePage router');
+                        debugPrint('HomePage router');
                         Navigator.pushNamed(context, '/');
                       },
                       child: Text(
@@ -169,7 +169,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              print('TODO: link to Terms of Use');
+                              debugPrint('TODO: link to Terms of Use');
                             },
                             child: Text(
                               'Terms of Use',
@@ -183,7 +183,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              print('TODO: link to Privacy Policy');
+                              debugPrint('TODO: link to Privacy Policy');
                             },
                             child: Text(
                               'Privacy Policy',
@@ -234,10 +234,10 @@ class _SignUpState extends State<SignUp> {
 
   void validateRegistration () {
     if(emailController!.text != '' && nameController!.text != '' && passwordController!.text != ''){
-      print('---SIGN UP---');
-      print('Email - $emailController');
-      print('Name - $nameController');
-      print('password - $passwordController');
+      debugPrint('---SIGN UP---');
+      debugPrint('Email - $emailController');
+      debugPrint('Name - $nameController');
+      debugPrint('password - $passwordController');
     } else {
       showError(context, 'A field needs to be edited', Exception());
     }

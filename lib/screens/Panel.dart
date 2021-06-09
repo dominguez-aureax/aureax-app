@@ -2,7 +2,7 @@ import 'package:aureax_app/src/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widget/Button.dart';
+import '../widget/button.dart';
 
 class Panel extends StatefulWidget {
   Panel({Key? key}) : super(key: key);

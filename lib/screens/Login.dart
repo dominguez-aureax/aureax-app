@@ -141,9 +141,9 @@ class _LoginState extends State<Login> {
                   textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyText1)
                 ),
                 onPressed: () {
-                  print('Email: ' + emailController!.text);
-                  print('Password: ' + passwordController!.text);
-                  print('Sign in with Email proceeding');
+                  debugPrint('Email: ' + emailController!.text);
+                  debugPrint('Password: ' + passwordController!.text);
+                  debugPrint('Sign in with Email proceeding');
                   context.read<AuthenticationService>().signIn(
                     emailController!.text,
                     passwordController!.text,
@@ -172,12 +172,12 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Don\'t have an account? ',
+                    "Don't have an account?",
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   GestureDetector(
                     onTap: () {
-                      print('Sign Up Screen Router');
+                      debugPrint('Sign Up Screen Router');
                       Navigator.pushNamed(context,'/signup');
                     },
                     child: Text(
