@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   test-android:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
@@ -17,10 +17,9 @@ jobs:
           distribution: 'adopt'
           java-version: 13
 
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v1
-        with: 
+        with:
           channel: stable
 
       - name: Install dependencies
