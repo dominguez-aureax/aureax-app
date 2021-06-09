@@ -21,20 +21,19 @@ class DatabaseReference {
     String name,
     String company,
   ) {
-    return userCollection.doc(userId).set({
-      'name': name,
-      'email': email,
-      'password': password,
-      'company': company,
-    })
-    .then((value) => debugPrint('New User - $name'))
-    .catchError((error) => debugPrint('Failed to add user: $error'))
-    ;
+    return userCollection
+        .doc(userId)
+        .set({
+          'name': name,
+          'email': email,
+          'password': password,
+          'company': company,
+        })
+        .then((value) => debugPrint('New User - $name'))
+        .catchError((error) => debugPrint('Failed to add user: $error'));
   }
 
-  Stream getClient(
-    String userId
-  ) {
+  Stream getClient(String userId) {
     return _firestore.collection('users').doc(userId).snapshots();
   }
 }

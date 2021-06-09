@@ -25,7 +25,7 @@ class _SignUpState extends State<SignUp> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override 
+  @override
   void initState() {
     super.initState();
     nameController = TextEditingController();
@@ -35,205 +35,201 @@ class _SignUpState extends State<SignUp> {
     passwordConfirmationController = TextEditingController();
   }
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-                    child: GestureDetector(
-                      onTap: () {
-                        debugPrint('HomePage router');
-                        Navigator.pushNamed(context, '/');
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
-                    ),
-                  )
-                ],
-              )
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Full Name(Required)',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Theme.of(context).accentColor
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child: TextFormField(
-                      controller: nameController,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'Jane Doe',
-                      ),
-                    )
-                  ),
-                  Text(
-                    'Company',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Theme.of(context).accentColor
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child: TextFormField(
-                      controller: companyController,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'Company Name',
-                      ),
-                    )
-                  ),
-                  Text(
-                    'Email Address (Required)',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Theme.of(context).accentColor
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child: TextFormField(
-                      controller: emailController,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'example@email.com',
-                      ),
-                    )
-                  ),
-                  Text(
-                    'Enter Password',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Theme.of(context).accentColor
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child: TextFormField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                      ),
-                    )
-                  ),
-                  Text(
-                    'Confirm Password',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Theme.of(context).accentColor
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child: TextFormField(
-                      controller: passwordConfirmationController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                      ),
-                    )
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                    child: CheckboxListTile(
-                      value: acceptTerms ?? false,
-                      onChanged: (newValue) =>
-                        setState(() => acceptTerms = newValue),
-                      title: Row(
-                        children: [
-                          Text(
-                            'I accept the '
+          width: double.infinity,
+          height: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                  padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+                        child: GestureDetector(
+                          onTap: () {
+                            debugPrint('HomePage router');
+                            Navigator.pushNamed(context, '/');
+                          },
+                          child: Text(
+                            'Sign Up',
+                            style: Theme.of(context).textTheme.headline1,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              debugPrint('TODO: link to Terms of Use');
-                            },
-                            child: Text(
-                              'Terms of Use',
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
+                        ),
+                      )
+                    ],
+                  )),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Full Name(Required)',
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(color: Theme.of(context).accentColor),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        child: TextFormField(
+                          controller: nameController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            hintText: 'Jane Doe',
+                          ),
+                        )),
+                    Text(
+                      'Company',
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(color: Theme.of(context).accentColor),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        child: TextFormField(
+                          controller: companyController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            hintText: 'Company Name',
+                          ),
+                        )),
+                    Text(
+                      'Email Address (Required)',
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(color: Theme.of(context).accentColor),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        child: TextFormField(
+                          controller: emailController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            hintText: 'example@email.com',
+                          ),
+                        )),
+                    Text(
+                      'Enter Password',
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(color: Theme.of(context).accentColor),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        child: TextFormField(
+                          controller: passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            hintText: 'Password',
+                          ),
+                        )),
+                    Text(
+                      'Confirm Password',
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(color: Theme.of(context).accentColor),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        child: TextFormField(
+                          controller: passwordConfirmationController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            hintText: 'Password',
+                          ),
+                        )),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                      child: CheckboxListTile(
+                        value: acceptTerms ?? false,
+                        onChanged: (newValue) =>
+                            setState(() => acceptTerms = newValue),
+                        title: Row(
+                          children: [
+                            Text('I accept the '),
+                            GestureDetector(
+                              onTap: () {
+                                debugPrint('TODO: link to Terms of Use');
+                              },
+                              child: Text(
+                                'Terms of Use',
+                                style: TextStyle(
+                                  color: Theme.of(context).accentColor,
+                                ),
                               ),
                             ),
-                          ),
-                          Text(
-                            ' & '
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              debugPrint('TODO: link to Privacy Policy');
-                            },
-                            child: Text(
-                              'Privacy Policy',
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
+                            Text(' & '),
+                            GestureDetector(
+                              onTap: () {
+                                debugPrint('TODO: link to Privacy Policy');
+                              },
+                              child: Text(
+                                'Privacy Policy',
+                                style: TextStyle(
+                                  color: Theme.of(context).accentColor,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        tileColor: Color(0x00f5f5f5),
+                        activeColor: Theme.of(context).accentColor,
+                        checkColor: Theme.of(context).primaryColor,
+                        dense: true,
+                        controlAffinity: ListTileControlAffinity.leading,
                       ),
-                      tileColor: Color(0x00f5f5f5),
-                      activeColor: Theme.of(context).accentColor,
-                      checkColor: Theme.of(context).primaryColor,
-                      dense: true,
-                      controlAffinity: ListTileControlAffinity.leading,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-              child: createButton(
-                onPressed: () {
-                  debugPrint('Full Name: ' + nameController!.text);
-                  debugPrint('Company: ' + companyController!.text);
-                  debugPrint('Email Address: ' + emailController!.text);
-                  debugPrint('Password: ' + passwordController!.text);
-                  validateRegistration();
-                  debugPrint('user is registered and signed in');
-                  context.read<AuthenticationService>().signUp(
-                    emailController!.text, 
-                    passwordController!.text, 
-                    nameController!.text,
-                    companyController!.text,
-                  );
-                  Navigator.pop(context);
-                }, 
-                child: Text('Sign Up'), 
-                context: context,
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                child: createButton(
+                  onPressed: () {
+                    debugPrint('Full Name: ' + nameController!.text);
+                    debugPrint('Company: ' + companyController!.text);
+                    debugPrint('Email Address: ' + emailController!.text);
+                    debugPrint('Password: ' + passwordController!.text);
+                    validateRegistration();
+                    debugPrint('user is registered and signed in');
+                    context.read<AuthenticationService>().signUp(
+                          emailController!.text,
+                          passwordController!.text,
+                          nameController!.text,
+                          companyController!.text,
+                        );
+                    Navigator.pop(context);
+                  },
+                  child: Text('Sign Up'),
+                  context: context,
+                ),
               ),
-            ),
-          ],
-        )
-      ),
+            ],
+          )),
     );
   }
 
-  void validateRegistration () {
-    if(emailController!.text != '' && nameController!.text != '' && passwordController!.text != ''){
+  void validateRegistration() {
+    if (emailController!.text != '' &&
+        nameController!.text != '' &&
+        passwordController!.text != '') {
       debugPrint('---SIGN UP---');
       debugPrint('Email - $emailController');
       debugPrint('Name - $nameController');
