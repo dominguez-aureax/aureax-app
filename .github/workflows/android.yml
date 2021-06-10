@@ -1,0 +1,38 @@
+name: Test Android
+on: [push]
+
+jobs:
+  test-android:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: 13
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Verify formatting
+        run: flutter format --set-exit-if-changed .
+
+      - name: Analyze project
+        run: flutter analyze .
+
+      # - name: Run tests
+      #   run: flutter test
+
+      - name: Build Android
+        run: flutter build apk && flutter build appbundle

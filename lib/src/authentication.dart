@@ -9,6 +9,7 @@ import '../screens/panel.dart';
 import '../screens/sign_up.dart';
 
 import './database.dart';
+
 class Authentication extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,32 +19,34 @@ class Authentication extends StatelessWidget {
           create: (_) => AuthenticationService(FirebaseAuth.instance),
         ),
         StreamProvider(
-          create: (context) => context.read<AuthenticationService>().authStateChanges, 
+          create: (context) =>
+              context.read<AuthenticationService>().authStateChanges,
           initialData: null,
         ),
       ],
       child: MaterialApp(
-        title: 'Aureax',
-        initialRoute: '/',
-        routes: <String, WidgetBuilder>{
-          '/': (context) => AuthenticationWrapper(),
-          '/login': (context) => Login(),
-          '/panel': (context) => Panel(),
-          '/signup': (context) => SignUp(),
-        },
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          backgroundColor: const Color(0xFF232931),
-          primaryColor: const Color(0xFFeeeeee),
-          accentColor: const Color(0xFF45aff0),
-          fontFamily: GoogleFonts.roboto().fontFamily,
-          textTheme: TextTheme(
-            headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
-            subtitle1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
-            bodyText1: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
-          )
-        )
-      ),
+          title: 'Aureax',
+          initialRoute: '/',
+          routes: <String, WidgetBuilder>{
+            '/': (context) => AuthenticationWrapper(),
+            '/login': (context) => Login(),
+            '/panel': (context) => Panel(),
+            '/signup': (context) => SignUp(),
+          },
+          theme: ThemeData(
+              brightness: Brightness.dark,
+              backgroundColor: const Color(0xFF232931),
+              primaryColor: const Color(0xFFeeeeee),
+              accentColor: const Color(0xFF45aff0),
+              fontFamily: GoogleFonts.roboto().fontFamily,
+              textTheme: TextTheme(
+                headline1:
+                    TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+                subtitle1:
+                    TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+                bodyText1:
+                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+              ))),
     );
   }
 }
@@ -56,7 +59,7 @@ class AuthenticationWrapper extends StatelessWidget {
 
     if (firebaseUser != null) {
       return Panel();
-    } 
+    }
     return Login();
   }
 }
@@ -73,12 +76,10 @@ class AuthenticationService {
     return _firebaseAuth.currentUser!.displayName;
   }
 
-  Future<String> signIn(
-    String email, 
-    String password
-  ) async {
+  Future<String> signIn(String email, String password) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
       return 'Signed In';
     } on FirebaseAuthException catch (e) {
       debugPrint(e.message);
@@ -87,14 +88,14 @@ class AuthenticationService {
   }
 
   Future<String> signUp(
-    String email, 
+    String email,
     String password,
     String displayName,
     String company,
   ) async {
     try {
-      var credential = await _firebaseAuth
-        .createUserWithEmailAndPassword(email: email, password: password);
+      var credential = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
       await credential.user!.updateProfile(displayName: displayName);
       var userId = credential.user!.uid;
       await db.addClient(userId, email, password, displayName, company);

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../src/authentication.dart';
 
 class Login extends StatefulWidget {
-  Login({Key? key}) : super (key: key);
+  Login({Key? key}) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();
@@ -17,7 +17,8 @@ class _LoginState extends State<Login> {
   bool? keepSignIn;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override void initState() {
+  @override
+  void initState() {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -44,14 +45,13 @@ class _LoginState extends State<Login> {
                 children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-                    child: 
-                      Text(
-                        'Login',
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
+                    child: Text(
+                      'Login',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
                   )
                 ],
-              ),  
+              ),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -61,9 +61,10 @@ class _LoginState extends State<Login> {
                 children: [
                   Text(
                     'Email',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Theme.of(context).accentColor
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: Theme.of(context).accentColor),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
@@ -77,9 +78,10 @@ class _LoginState extends State<Login> {
                   ),
                   Text(
                     'Password',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Theme.of(context).accentColor
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1!
+                        .copyWith(color: Theme.of(context).accentColor),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
@@ -92,24 +94,24 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   Align(
-                    alignment: Alignment(1,0),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                      child: Text(
-                        'Forgot Password?',
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: Theme.of(context).accentColor,
+                      alignment: Alignment(1, 0),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        child: Text(
+                          'Forgot Password?',
+                          textAlign: TextAlign.start,
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: Theme.of(context).accentColor,
+                                  ),
                         ),
-                      ),
-                    )
-                  ),
+                      )),
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                     child: CheckboxListTile(
                       value: keepSignIn ?? false,
                       onChanged: (newValue) =>
-                        setState(() => keepSignIn = newValue),
+                          setState(() => keepSignIn = newValue),
                       title: Text(
                         'KEEP ME SIGNED IN',
                       ),
@@ -127,29 +129,31 @@ class _LoginState extends State<Login> {
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: ElevatedButton(
                 style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
-                  backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.transparent)
+                    foregroundColor: MaterialStateProperty.all(
+                        Theme.of(context).primaryColor),
+                    backgroundColor: MaterialStateProperty.all(
+                        Theme.of(context).accentColor),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.transparent)),
                     ),
-                  ),
-                  minimumSize: MaterialStateProperty.all<Size>(
-                    Size(double.infinity, 50)
-                  ),
-                  textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyText1)
-                ),
+                    minimumSize: MaterialStateProperty.all<Size>(
+                        Size(double.infinity, 50)),
+                    textStyle: MaterialStateProperty.all(
+                        Theme.of(context).textTheme.bodyText1)),
                 onPressed: () {
                   debugPrint('Email: ' + emailController!.text);
                   debugPrint('Password: ' + passwordController!.text);
                   debugPrint('Sign in with Email proceeding');
                   context.read<AuthenticationService>().signIn(
-                    emailController!.text,
-                    passwordController!.text,
-                  );
+                        emailController!.text,
+                        passwordController!.text,
+                      );
                 },
-                child: Text('Sign in with Email',),
+                child: Text(
+                  'Sign in with Email',
+                ),
               ),
             ),
             Padding(
@@ -178,13 +182,13 @@ class _LoginState extends State<Login> {
                   GestureDetector(
                     onTap: () {
                       debugPrint('Sign Up Screen Router');
-                      Navigator.pushNamed(context,'/signup');
+                      Navigator.pushNamed(context, '/signup');
                     },
                     child: Text(
                       'Sign Up!',
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        color: Theme.of(context).accentColor,
-                      ),
+                            color: Theme.of(context).accentColor,
+                          ),
                     ),
                   ),
                 ],
@@ -206,8 +210,8 @@ class _LoginState extends State<Login> {
                   child: Text(
                     'Enter code/email.',
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Theme.of(context).accentColor,
-                    ),
+                          color: Theme.of(context).accentColor,
+                        ),
                   ),
                 ),
               ],
