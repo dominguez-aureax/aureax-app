@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../widget/button.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({Key? key}) : super (key: key);
+  SignUp({Key? key}) : super(key: key);
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -23,54 +23,48 @@ class _SignUpState extends State<SignUp> {
 
   Widget buildName() {
     return TextFormField(
-      decoration: InputDecoration(
-        hintText: 'Jane Doe',
-        labelText: 'Full Name'
-      ),
-      validator: (String? value) {
-        return (value != null && value.isNotEmpty) ? null : 'Full Name is required';
-      },
-      onSaved: (String? value) {
-        if(value != null) {
-          name = value;
-        }
-      }
-    );
+        decoration:
+            InputDecoration(hintText: 'Jane Doe', labelText: 'Full Name'),
+        validator: (String? value) {
+          return (value != null && value.isNotEmpty)
+              ? null
+              : 'Full Name is required';
+        },
+        onSaved: (String? value) {
+          if (value != null) {
+            name = value;
+          }
+        });
   }
 
   Widget buildEmail() {
     return TextFormField(
-      decoration: InputDecoration(
-        hintText: 'example@email.com',
-        labelText: 'Email Address'
-      ),
-      validator: (String? value) {
-        if (value == null || value.isEmpty || !value.contains('@')) {
-          debugPrint('Email is not valid');
-          return 'Enter a valid Email Address';
-        }
-        return null;
-      },
-      onSaved: (String? value) {
-        if(value != null) {
-          email = value;
-        }
-      }
-    );
+        decoration: InputDecoration(
+            hintText: 'example@email.com', labelText: 'Email Address'),
+        validator: (String? value) {
+          if (value == null || value.isEmpty || !value.contains('@')) {
+            debugPrint('Email is not valid');
+            return 'Enter a valid Email Address';
+          }
+          return null;
+        },
+        onSaved: (String? value) {
+          if (value != null) {
+            email = value;
+          }
+        });
   }
 
   Widget buildPhone() {
     return TextFormField(
-      decoration: InputDecoration(
-        hintText: '888-888-8888',
-        labelText: 'Phone Number'
-      ),
+      decoration:
+          InputDecoration(hintText: '888-888-8888', labelText: 'Phone Number'),
       validator: (String? value) {
         // This is not a required field
         return null;
       },
       onSaved: (String? value) {
-        if(value != null) {
+        if (value != null) {
           phone = value;
         }
       },
@@ -139,7 +133,9 @@ class _SignUpState extends State<SignUp> {
         debugPrint('Phone --- $phone');
         debugPrint('Password --- $password');
 
-        context.read<AuthenticationService>().signUp(email, password, name, phone);
+        context
+            .read<AuthenticationService>()
+            .signUp(email, password, name, phone);
 
         Navigator.pop(context);
       },
@@ -148,66 +144,60 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-                    child: GestureDetector(
-                      onTap: (){
-                        debugPrint('HomePage router');
-                        Navigator.pushNamed(context, '/');
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: Theme.of(context).textTheme.headline1,
-                      )
-                    )
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
+        resizeToAvoidBottomInset: false,
+        body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  child: Row(
                     mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      buildName(),
-                      buildEmail(),
-                      buildPhone(),
-                      buildPassword(),
-                      buildConfirmPassword(),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Padding(
-                        padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                        child: buildButton(context),
-                      ),
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+                          child: GestureDetector(
+                              onTap: () {
+                                debugPrint('HomePage router');
+                                Navigator.pushNamed(context, '/');
+                              },
+                              child: Text(
+                                'Sign Up',
+                                style: Theme.of(context).textTheme.headline1,
+                              ))),
                     ],
-                  )
+                  ),
                 ),
-              )
-            )
-          ],
-        )
-      )
-    );
+                Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: SingleChildScrollView(
+                      child: Form(
+                          key: formKey,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              buildName(),
+                              buildEmail(),
+                              buildPhone(),
+                              buildPassword(),
+                              buildConfirmPassword(),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                                child: buildButton(context),
+                              ),
+                            ],
+                          )),
+                    ))
+              ],
+            )));
   }
 }
