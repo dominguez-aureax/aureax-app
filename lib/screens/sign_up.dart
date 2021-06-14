@@ -1,4 +1,6 @@
+import 'package:aureax_app/src/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widget/button.dart';
 
@@ -137,7 +139,7 @@ class _SignUpState extends State<SignUp> {
         debugPrint('Phone --- $phone');
         debugPrint('Password --- $password');
 
-        validateRegistration();
+        context.read<AuthenticationService>().signUp(email, password, name, phone);
 
         Navigator.pop(context);
       },
@@ -207,10 +209,5 @@ class _SignUpState extends State<SignUp> {
         )
       )
     );
-  }
-
-  void validateRegistration() {
-    debugPrint('TODO: VALIDATE REGISTRATION');
-    
   }
 }

@@ -19,6 +19,7 @@ class DatabaseReference {
     String email,
     String password,
     String name,
+    String phone,
   ) {
     return userCollection
         .doc(userId)
@@ -26,6 +27,7 @@ class DatabaseReference {
           'name': name,
           'email': email,
           'password': password,
+          'phone': phone,
         })
         .then((value) => debugPrint('New User - $name'))
         .catchError((error) => debugPrint('Failed to add user: $error'));

@@ -91,13 +91,14 @@ class AuthenticationService {
     String email,
     String password,
     String displayName,
+    String phone,
   ) async {
     try {
       var credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       await credential.user!.updateProfile(displayName: displayName);
       var userId = credential.user!.uid;
-      await db.addClient(userId, email, password, displayName);
+      await db.addClient(userId, email, password, displayName, phone);
       return 'Signed Up';
     } on FirebaseAuthException catch (e) {
       return '$e.message';
