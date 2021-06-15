@@ -19,6 +19,32 @@ class _PanelState extends State<Panel> {
     super.initState();
   }
 
+  Widget buildTitle(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+            child: Text(
+              'Panel',
+              style: Theme.of(context).textTheme.headline1,
+            ),
+          )
+        ]
+      )
+    );
+  }
+
+  Widget buildLink(BuildContext context) {
+    var uri = context.read<AuthenticationService>().linkMessage;
+    return Text(
+      'LINK::: $uri'
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,20 +57,21 @@ class _PanelState extends State<Panel> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                buildTitle(context),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-                  child: Row(
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                           'USER: ${context.read<AuthenticationService>().getUser()}'),
+                      buildLink(context),
                     ],
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,

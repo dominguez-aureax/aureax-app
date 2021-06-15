@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -67,6 +68,7 @@ class AuthenticationWrapper extends StatelessWidget {
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
   final DatabaseReference db = DatabaseReference();
+  String? linkMessage = 'NO LINK';
 
   AuthenticationService(this._firebaseAuth);
 
@@ -76,10 +78,34 @@ class AuthenticationService {
     return _firebaseAuth.currentUser!.displayName;
   }
 
+  Future<void> initDynamicLink() async {
+    var uri = await getLink();
+    debugPrint('URL: ${uri.toString()}');
+    linkMessage = uri.toString();
+  }
+
+  Future<Uri> getLink() async {
+    // Get current user
+    var user = _firebaseAuth.currentUser;
+    // Get Uid
+    var uid = user!.uid;
+    // Create link
+    var link = '?invitedby=' + uid;
+    debugPrint('link: $link');
+    // Create Dynamic Link
+    var params = DynamicLinkParameters(
+      uriPrefix: 'https://aureaxapp.page.link',
+      link: Uri.parse(link),
+    );
+
+    return await params.buildUrl();
+  }
+
   Future<String> signIn(String email, String password) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      await initDynamicLink();
       return 'Signed In';
     } on FirebaseAuthException catch (e) {
       debugPrint(e.message);
