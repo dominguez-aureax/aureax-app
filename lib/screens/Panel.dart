@@ -21,28 +21,24 @@ class _PanelState extends State<Panel> {
 
   Widget buildTitle(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-            child: Text(
-              'Panel',
-              style: Theme.of(context).textTheme.headline1,
-            ),
-          )
-        ]
-      )
-    );
+        padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+        child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+                child: Text(
+                  'Panel',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+              )
+            ]));
   }
 
   Widget buildLink(BuildContext context) {
     var uri = context.read<AuthenticationService>().linkMessage;
-    return Text(
-      'LINK::: $uri'
-    );
+    return Text('LINK::: $uri');
   }
 
   @override
