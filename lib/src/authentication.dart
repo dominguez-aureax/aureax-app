@@ -55,10 +55,35 @@ class Authentication extends StatelessWidget {
 }
 
 class AuthenticationWrapper extends StatelessWidget {
+  void initDynamicLinks(BuildContext context) async {
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+      var deepLink = dynamicLink?.link;
+
+      if (deepLink != null) {
+        debugPrint('A DYNAMIC LINK OPENED THIS APP!');
+        await Navigator.pushNamed(context, '/referral');
+      }
+    }, onError: (OnLinkErrorException e) async {
+      debugPrint('onLinkError: ');
+      debugPrint(e.message);
+    });
+
+    var data = await FirebaseDynamicLinks.instance.getInitialLink();
+    var deepLink = data?.link;
+
+    if (deepLink != null) {
+      debugPrint('A DYNAMIC LINK OPENED THIS APP!');
+      await Navigator.pushNamed(context, '/referral');
+    }
+
+    debugPrint('A DYNAMIC LINK WAS NOT FOUND');
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final scaffoldKey = GlobalKey<ScaffoldState>();
+    initDynamicLinks(context);
+
     var firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {

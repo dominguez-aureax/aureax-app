@@ -10,7 +10,7 @@ class Referral extends StatefulWidget {
 class _ReferralState extends State<Referral> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override 
+  @override
   void initState() {
     super.initState();
   }
@@ -37,19 +37,18 @@ class _ReferralState extends State<Referral> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildTitle(context),
-          ],
-        ),
-      )
-    );
+        key: scaffoldKey,
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildTitle(context),
+            ],
+          ),
+        ));
   }
 }
