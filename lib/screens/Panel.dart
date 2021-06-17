@@ -1,6 +1,8 @@
 import 'package:aureax_app/src/authentication.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widget/button.dart';
 
@@ -38,7 +40,15 @@ class _PanelState extends State<Panel> {
 
   Widget buildLink(BuildContext context) {
     var uri = context.read<AuthenticationService>().linkMessage;
-    return Text('LINK::: $uri');
+    return RichText(
+        text: TextSpan(
+      text: 'LINK: $uri',
+      recognizer: TapGestureRecognizer()
+        ..onTap = () {
+          debugPrint('CLICKED LINK...');
+          launch('$uri');
+        },
+    ));
   }
 
   @override

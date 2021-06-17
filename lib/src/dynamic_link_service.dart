@@ -10,6 +10,12 @@ class DynamicLinkService {
     handleDeepLink(data);
 
     // INTO FOREGROUND FROM DYNAMIC LINK LOGIC
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData? dynamicLinkData) async {
+      handleDeepLink(dynamicLinkData);
+    }, onError: (OnLinkErrorException e) async {
+      debugPrint('Dynamic Link Failed: ${e.message}');
+    });
   }
 
   void handleDeepLink(PendingDynamicLinkData? data) {
