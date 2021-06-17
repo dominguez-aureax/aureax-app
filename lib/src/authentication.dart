@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../screens/login.dart';
 import '../screens/panel.dart';
 import '../screens/sign_up.dart';
+import '../screens/referral.dart';
 
 import './database.dart';
 
@@ -33,6 +34,7 @@ class Authentication extends StatelessWidget {
             '/login': (context) => Login(),
             '/panel': (context) => Panel(),
             '/signup': (context) => SignUp(),
+            '/referral': (context) => Referral(),
           },
           theme: ThemeData(
               brightness: Brightness.dark,
@@ -53,6 +55,7 @@ class Authentication extends StatelessWidget {
 }
 
 class AuthenticationWrapper extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     // final scaffoldKey = GlobalKey<ScaffoldState>();
