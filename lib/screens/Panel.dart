@@ -1,10 +1,10 @@
-import 'package:aureax_app/src/authentication.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widget/button.dart';
+import '../src/authentication.dart';
 
 class Panel extends StatefulWidget {
   Panel({Key? key}) : super(key: key);
@@ -72,7 +72,7 @@ class _PanelState extends State<Panel> {
                     children: [
                       Text(
                           'USER: ${context.read<AuthenticationService>().getUser()}'),
-                      buildLink(context),
+                      // buildLink(context),
                     ],
                   ),
                 ),
@@ -87,6 +87,13 @@ class _PanelState extends State<Panel> {
                               context.read<AuthenticationService>().signOut();
                             },
                             child: Text('Log Out'),
+                            context: context),
+                        createButton(
+                            onPressed: () {
+                              debugPrint('TRAVELING TO SHARE SCREEEN');
+                              Navigator.pushNamed(context, '/share');
+                            },
+                            child: Text('Share'),
                             context: context),
                       ],
                     ))

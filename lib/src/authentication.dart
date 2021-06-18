@@ -9,6 +9,7 @@ import '../screens/login.dart';
 import '../screens/panel.dart';
 import '../screens/sign_up.dart';
 import '../screens/referral.dart';
+import '../screens/share.dart';
 
 import './database.dart';
 
@@ -35,6 +36,7 @@ class Authentication extends StatelessWidget {
             '/panel': (context) => Panel(),
             '/signup': (context) => SignUp(),
             '/referral': (context) => Referral(),
+            '/share': (context) => Share(),
           },
           theme: ThemeData(
               brightness: Brightness.dark,
