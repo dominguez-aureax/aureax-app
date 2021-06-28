@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../screens/login.dart';
 import '../screens/panel.dart';
 import '../screens/sign_up.dart';
+import '../screens/referral.dart';
+import '../screens/share.dart';
 
 import './database.dart';
 
@@ -32,6 +35,8 @@ class Authentication extends StatelessWidget {
             '/login': (context) => Login(),
             '/panel': (context) => Panel(),
             '/signup': (context) => SignUp(),
+            '/referral': (context) => Referral(),
+            '/share': (context) => Share(),
           },
           theme: ThemeData(
               brightness: Brightness.dark,
@@ -52,9 +57,35 @@ class Authentication extends StatelessWidget {
 }
 
 class AuthenticationWrapper extends StatelessWidget {
+  void initDynamicLinks(BuildContext context) async {
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+      var deepLink = dynamicLink?.link;
+
+      if (deepLink != null) {
+        debugPrint('A DYNAMIC LINK OPENED THIS APP!');
+        await Navigator.pushNamed(context, '/referral');
+      }
+    }, onError: (OnLinkErrorException e) async {
+      debugPrint('onLinkError: ');
+      debugPrint(e.message);
+    });
+
+    var data = await FirebaseDynamicLinks.instance.getInitialLink();
+    var deepLink = data?.link;
+
+    if (deepLink != null) {
+      debugPrint('A DYNAMIC LINK OPENED THIS APP!');
+      await Navigator.pushNamed(context, '/referral');
+    }
+
+    debugPrint('A DYNAMIC LINK WAS NOT FOUND');
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final scaffoldKey = GlobalKey<ScaffoldState>();
+    initDynamicLinks(context);
+
     var firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
@@ -67,6 +98,7 @@ class AuthenticationWrapper extends StatelessWidget {
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
   final DatabaseReference db = DatabaseReference();
+  String? linkMessage = 'NO LINK';
 
   AuthenticationService(this._firebaseAuth);
 
@@ -76,10 +108,34 @@ class AuthenticationService {
     return _firebaseAuth.currentUser!.displayName;
   }
 
+  Future<void> initDynamicLink() async {
+    var uri = await getLink();
+    debugPrint('URL: ${uri.toString()}');
+    linkMessage = uri.toString();
+  }
+
+  Future<Uri> getLink() async {
+    // Get current user
+    var user = _firebaseAuth.currentUser;
+    // Get Uid
+    var uid = user!.uid;
+    // Create link
+    var link = '?invitedby=' + uid;
+    debugPrint('link: $link');
+    // Create Dynamic Link
+    var params = DynamicLinkParameters(
+      uriPrefix: 'https://aureaxapp.page.link',
+      link: Uri.parse(link),
+    );
+
+    return await params.buildUrl();
+  }
+
   Future<String> signIn(String email, String password) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      await initDynamicLink();
       return 'Signed In';
     } on FirebaseAuthException catch (e) {
       debugPrint(e.message);
