@@ -1,4 +1,4 @@
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('String.split() splits the string on the delimiter', () {
@@ -7,7 +7,7 @@ void main() {
   });
 
   test('String.trem removes surrounding whitespace', () {
-    var string = '  foo '; 
+    var string = '  foo ';
     expect(string.trim(), equals('foo'));
   });
 }
