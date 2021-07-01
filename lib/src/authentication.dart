@@ -69,7 +69,6 @@ class AuthenticationWrapper extends StatefulWidget {
 }
 
 class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
-
   @override
   void initState() {
     // display the build
@@ -77,8 +76,8 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     onStart();
   }
 
-  // Example of 
-  void onStart() async{
+  // Example of
+  void onStart() async {
     await Future.delayed(const Duration(seconds: 6));
     initDynamicLinks();
     getAuthenticationStatus(context);
@@ -92,7 +91,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
       if (deepLink != null) {
         debugPrint('A DYNAMIC LINK OPENED THIS APP!');
         await Navigator.pushReplacementNamed(
-          context, 
+          context,
           '/referral',
         );
       }
@@ -124,7 +123,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    initDynamicLinks(); 
+    initDynamicLinks();
 
     return SplashScreen();
   }
