@@ -34,8 +34,8 @@ jobs:
       - name: Analyze project
         run: flutter analyze .
 
-      # - name: Run tests
-      #   run: flutter test
+      - name: Run tests
+        run: flutter test ./test/
 
       # Needs to be ran on a macOS first
       # - name: Build Apple

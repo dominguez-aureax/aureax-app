@@ -31,8 +31,8 @@ jobs:
       - name: Analyze project
         run: flutter analyze .
 
-      # - name: Run tests
-      #   run: flutter test
+      - name: Run tests
+        run: flutter test ./test/
 
       - name: Build Android
         run: flutter build apk && flutter build appbundle

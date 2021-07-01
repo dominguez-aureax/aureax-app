@@ -35,6 +35,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: any
 
   pedantic: ^1.11.0
 
