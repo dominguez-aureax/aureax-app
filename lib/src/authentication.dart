@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:aureax_app/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import '../screens/panel.dart';
 import '../screens/sign_up.dart';
 import '../screens/referral.dart';
 import '../screens/share.dart';
+import '../screens/splash_screen.dart';
 
 import './database.dart';
 
@@ -56,15 +58,42 @@ class Authentication extends StatelessWidget {
   }
 }
 
-class AuthenticationWrapper extends StatelessWidget {
-  void initDynamicLinks(BuildContext context) async {
+// Authentication Wrapper which will handle loading the login credentials.
+//
+// While the credentials are loading there will be a splash screen displayed
+class AuthenticationWrapper extends StatefulWidget {
+  const AuthenticationWrapper({Key? key}) : super(key: key);
+
+  @override
+  State createState() => _AuthenticationWrapperState();
+}
+
+class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
+  @override
+  void initState() {
+    // display the build
+    super.initState();
+    onStart();
+  }
+
+  // Example of
+  void onStart() async {
+    await Future.delayed(const Duration(seconds: 6));
+    initDynamicLinks();
+    getAuthenticationStatus(context);
+  }
+
+  void initDynamicLinks() async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
       var deepLink = dynamicLink?.link;
 
       if (deepLink != null) {
         debugPrint('A DYNAMIC LINK OPENED THIS APP!');
-        await Navigator.pushNamed(context, '/referral');
+        await Navigator.pushReplacementNamed(
+          context,
+          '/referral',
+        );
       }
     }, onError: (OnLinkErrorException e) async {
       debugPrint('onLinkError: ');
@@ -82,16 +111,21 @@ class AuthenticationWrapper extends StatelessWidget {
     debugPrint('A DYNAMIC LINK WAS NOT FOUND');
   }
 
-  @override
-  Widget build(BuildContext context) {
-    initDynamicLinks(context);
-
+  void getAuthenticationStatus(context) async {
     var firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      return Panel();
+      await Navigator.pushReplacementNamed(context, '/login');
     }
-    return Login();
+
+    await Navigator.pushReplacementNamed(context, '/signup');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    initDynamicLinks();
+
+    return SplashScreen();
   }
 }
 
