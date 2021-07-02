@@ -108,7 +108,7 @@ class _LoginState extends State<Login> {
     return Align(
       alignment: Alignment(1, 0),
       child: Padding(
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Text(
           'Forgot Password?',
           textAlign: TextAlign.start,
@@ -122,7 +122,7 @@ class _LoginState extends State<Login> {
 
   Widget buildCheckbox() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+      padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
       child: CheckboxListTile(
         value: keepSignIn ?? false,
         onChanged: (newValue) => setState(() => keepSignIn = newValue),
@@ -138,6 +138,7 @@ class _LoginState extends State<Login> {
     );
   }
 
+  // TODO: Add Padding 20-0-20-20
   Widget buildEmailButton(BuildContext context, GlobalKey<FormState> formKey) {
     return createButton(
         onPressed: () {
@@ -154,6 +155,7 @@ class _LoginState extends State<Login> {
         context: context);
   }
 
+  // TODO: Add Padding 20-0-20-20
   Widget buildGoogleButton(GlobalKey formKey) {
     return SignInButton(
       buttonType: ButtonType.google,
@@ -193,6 +195,8 @@ class _LoginState extends State<Login> {
           ],
         ));
   }
+
+  //TODO: ADD Navigation Bar
 
   @override
   Widget build(BuildContext context) {
