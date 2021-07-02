@@ -16,6 +16,32 @@ import '../screens/splash_screen.dart';
 import './database.dart';
 
 class Authentication extends StatelessWidget {
+  Widget initApp() {
+    return MaterialApp(
+        title: 'Aureax',
+        initialRoute: '/',
+        routes: <String, WidgetBuilder>{
+          '/': (context) => AuthenticationWrapper(),
+          '/login': (context) => Login(),
+          '/panel': (context) => Panel(),
+          '/signup': (context) => SignUp(),
+          '/referral': (context) => Referral(),
+          '/share': (context) => Share(),
+        },
+        theme: ThemeData(
+            brightness: Brightness.dark,
+            backgroundColor: const Color(0xFF232931),
+            primaryColor: const Color(0xFFeeeeee),
+            accentColor: const Color(0xFF45aff0),
+            fontFamily: GoogleFonts.roboto().fontFamily,
+            textTheme: TextTheme(
+              headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+              subtitle1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+              bodyText1:
+                  TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+            )));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -29,31 +55,7 @@ class Authentication extends StatelessWidget {
           initialData: null,
         ),
       ],
-      child: MaterialApp(
-          title: 'Aureax',
-          initialRoute: '/',
-          routes: <String, WidgetBuilder>{
-            '/': (context) => AuthenticationWrapper(),
-            '/login': (context) => Login(),
-            '/panel': (context) => Panel(),
-            '/signup': (context) => SignUp(),
-            '/referral': (context) => Referral(),
-            '/share': (context) => Share(),
-          },
-          theme: ThemeData(
-              brightness: Brightness.dark,
-              backgroundColor: const Color(0xFF232931),
-              primaryColor: const Color(0xFFeeeeee),
-              accentColor: const Color(0xFF45aff0),
-              fontFamily: GoogleFonts.roboto().fontFamily,
-              textTheme: TextTheme(
-                headline1:
-                    TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
-                subtitle1:
-                    TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
-                bodyText1:
-                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
-              ))),
+      child: initApp()
     );
   }
 }
@@ -76,13 +78,14 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     onStart();
   }
 
-  // Example of
+  // Statup dynamic links and authentication state
   void onStart() async {
     await Future.delayed(const Duration(seconds: 6));
     initDynamicLinks();
     getAuthenticationStatus(context);
   }
 
+  // Check for dynamic link calls
   void initDynamicLinks() async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
@@ -111,37 +114,45 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     debugPrint('A DYNAMIC LINK WAS NOT FOUND');
   }
 
-  void getAuthenticationStatus(context) async {
-    var firebaseUser = context.watch<User?>();
+  // get authentication status of current user
+  void getAuthenticationStatus(BuildContext context) async {
+    var firebaseUser = Provider.of<User?>(context, listen: false);
 
     if (firebaseUser != null) {
-      await Navigator.pushReplacementNamed(context, '/login');
+      await Navigator.pushReplacementNamed(context, '/panel');
     }
 
-    await Navigator.pushReplacementNamed(context, '/signup');
+    await Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
   Widget build(BuildContext context) {
     initDynamicLinks();
-
     return SplashScreen();
   }
 }
 
+// Authentication Service used for login/signup.
 class AuthenticationService {
+  // Entry point of Firebase Authentication SDK
   final FirebaseAuth _firebaseAuth;
+  // Referance to FireStore database
   final DatabaseReference db = DatabaseReference();
+  //  Unique Dynamic Link
   String? linkMessage = 'NO LINK';
 
+  // Constructor
   AuthenticationService(this._firebaseAuth);
 
+  // Bind user to follow when authenticationh state changes.
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
+  // get the current user's name
   String? getUser() {
     return _firebaseAuth.currentUser!.displayName;
   }
 
+  // initialize the basic dynamic link
   Future<void> initDynamicLink() async {
     var uri = await getLink();
     debugPrint('URL: ${uri.toString()}');
