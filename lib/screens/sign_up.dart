@@ -32,7 +32,7 @@ class _SignUpState extends State<SignUp> {
         },
         onSaved: (String? value) {
           if (value != null) {
-            name = value;
+            name = value.trim();
           }
         });
   }
@@ -50,7 +50,7 @@ class _SignUpState extends State<SignUp> {
         },
         onSaved: (String? value) {
           if (value != null) {
-            email = value;
+            email = value.trim();
           }
         });
   }
@@ -65,7 +65,7 @@ class _SignUpState extends State<SignUp> {
       },
       onSaved: (String? value) {
         if (value != null) {
-          phone = value;
+          phone = value.trim();
         }
       },
     );
@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUp> {
       },
       onSaved: (String? value) {
         if (value != null) {
-          password = value;
+          password = value.trim();
         }
       },
     );
