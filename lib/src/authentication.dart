@@ -116,6 +116,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
 
   // get authentication status of current user
   void getAuthenticationStatus(BuildContext context) async {
+    // Obtain the nearest Providewr of User up the widget tree.
     var firebaseUser = Provider.of<User?>(context, listen: false);
 
     if (firebaseUser != null) {

@@ -194,28 +194,6 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Have a referral? ',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    debugPrint('TODO: offer referral process');
-                  },
-                  child: Text(
-                    'Enter code/email.',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          color: Theme.of(context).accentColor,
-                        ),
-                  ),
-                ),
-              ],
-            )
           ],
         ),
       ),
