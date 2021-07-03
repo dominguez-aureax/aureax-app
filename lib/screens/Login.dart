@@ -138,34 +138,36 @@ class _LoginState extends State<Login> {
     );
   }
 
-  // TODO: Add Padding 20-0-20-20
   Widget buildEmailButton(BuildContext context, GlobalKey<FormState> formKey) {
-    return createButton(
-        onPressed: () {
-          formKey.currentState!.save();
-          if (!formKey.currentState!.validate()) {
-            debugPrint('LOGIN FORM --- VALIDATION ERROR');
-            return;
-          }
-          debugPrint('LOGIN FORM -- VALIDATED!');
+    return Padding(
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+        child: createButton(
+            onPressed: () {
+              formKey.currentState!.save();
+              if (!formKey.currentState!.validate()) {
+                debugPrint('LOGIN FORM --- VALIDATION ERROR');
+                return;
+              }
+              debugPrint('LOGIN FORM -- VALIDATED!');
 
-          context.read<AuthenticationService>().signIn(email, password);
-        },
-        child: Text('Sign in with Email'),
-        context: context);
+              context.read<AuthenticationService>().signIn(email, password);
+            },
+            child: Text('Sign in with Email'),
+            context: context));
   }
 
-  // TODO: Add Padding 20-0-20-20
   Widget buildGoogleButton(GlobalKey formKey) {
-    return SignInButton(
-      buttonType: ButtonType.google,
-      btnText: 'Sign in with Google',
-      onPressed: () {
-        debugPrint('LOGIN FORM --- SIGNING IN WITH GOOGLE');
-      },
-      buttonSize: ButtonSize.medium,
-      width: double.infinity,
-    );
+    return Padding(
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+        child: SignInButton(
+          buttonType: ButtonType.google,
+          btnText: 'Sign in with Google',
+          onPressed: () {
+            debugPrint('LOGIN FORM --- SIGNING IN WITH GOOGLE');
+          },
+          buttonSize: ButtonSize.medium,
+          width: double.infinity,
+        ));
   }
 
   Widget buildSignUp() {
