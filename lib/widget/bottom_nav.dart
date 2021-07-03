@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-Widget bottomNav ({
+Widget bottomNav({
   required String current,
 }) {
-
   var authRoutes = ['/panel', '/jobs', '/campaign', '/settings'];
   var nonAuthRoutes = ['/login', '/signup'];
 
-  Widget authNav(int index){
+  Widget authNav(int index) {
     return BottomNavigationBar(
       currentIndex: index,
       items: [
@@ -33,13 +32,12 @@ Widget bottomNav ({
     if (authRoutes.contains(current)) {
       var index = authRoutes.indexOf(current);
       return authNav(index);
-    } else if ( nonAuthRoutes.contains(current)) {
+    } else if (nonAuthRoutes.contains(current)) {
       var index = nonAuthRoutes.indexOf(current);
       return nonAuthNav(index);
     }
     return nonAuthNav(0);
   }
-
 
   return getNav(current);
 }

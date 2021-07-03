@@ -1,3 +1,4 @@
+import 'package:aureax_app/widget/bottom_nav.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,50 +60,52 @@ class _PanelState extends State<Panel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: scaffoldKey,
-        body: Container(
-            width: double.infinity,
-            height: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildTitle(context),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      key: scaffoldKey,
+      body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildTitle(context),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        'USER: ${context.read<AuthenticationService>().getUser()}'),
+                    // buildLink(context),
+                  ],
+                ),
+              ),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                          'USER: ${context.read<AuthenticationService>().getUser()}'),
-                      // buildLink(context),
+                      createButton(
+                          onPressed: () {
+                            context.read<AuthenticationService>().signOut();
+                          },
+                          child: Text('Log Out'),
+                          context: context),
+                      createButton(
+                          onPressed: () {
+                            debugPrint('TRAVELING TO SHARE SCREEEN');
+                            Navigator.pushNamed(context, '/share');
+                          },
+                          child: Text('Share'),
+                          context: context),
                     ],
-                  ),
-                ),
-                Padding(
-                    padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        createButton(
-                            onPressed: () {
-                              context.read<AuthenticationService>().signOut();
-                            },
-                            child: Text('Log Out'),
-                            context: context),
-                        createButton(
-                            onPressed: () {
-                              debugPrint('TRAVELING TO SHARE SCREEEN');
-                              Navigator.pushNamed(context, '/share');
-                            },
-                            child: Text('Share'),
-                            context: context),
-                      ],
-                    ))
-              ],
-            )));
+                  ))
+            ],
+          )),
+      bottomNavigationBar: bottomNav(current: ROUTE_NAME),
+    );
   }
 }
