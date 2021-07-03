@@ -6,6 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../widget/button.dart';
 import '../src/authentication.dart';
 
+const ROUTE_NAME = '/panel';
+
 class Panel extends StatefulWidget {
   Panel({Key? key}) : super(key: key);
 
@@ -20,6 +22,8 @@ class _PanelState extends State<Panel> {
   void initState() {
     super.initState();
   }
+
+  //TODO: ADD DATA TABLES
 
   Widget buildTitle(BuildContext context) {
     return Padding(
@@ -51,6 +55,7 @@ class _PanelState extends State<Panel> {
     ));
   }
 
+  // TODO: ADD NAV BAR
   @override
   Widget build(BuildContext context) {
     return Scaffold(

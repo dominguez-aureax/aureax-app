@@ -5,6 +5,10 @@ import 'package:provider/provider.dart';
 
 import '../src/authentication.dart';
 
+import '../widget/bottom_nav.dart';
+
+const ROUTE_NAME = '/login';
+
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
 
@@ -218,6 +222,7 @@ class _LoginState extends State<Login> {
           ],
         ),
       ),
+      bottomNavigationBar: bottomNav(current: ROUTE_NAME),
     );
   }
 }

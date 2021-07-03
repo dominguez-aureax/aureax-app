@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../widget/button.dart';
 
+const ROUTE_NAME = '/signup';
 class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
 
@@ -144,6 +145,7 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
+  // TODO: ADD NAV BAR
   @override
   Widget build(BuildContext context) {
     return Scaffold(

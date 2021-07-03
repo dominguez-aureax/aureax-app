@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const ROUTE_NAME = 'referral';
 class Referral extends StatefulWidget {
   Referral({Key? key}) : super(key: key);
 
