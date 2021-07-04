@@ -202,7 +202,6 @@ class _LoginState extends State<Login> {
         ));
   }
 
-  //TODO: ADD Navigation Bar
 
   @override
   Widget build(BuildContext context) {

@@ -10,10 +10,10 @@ Widget bottomNav({
     return BottomNavigationBar(
       currentIndex: index,
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home)),
-        BottomNavigationBarItem(icon: Icon(Icons.paste)),
-        BottomNavigationBarItem(icon: Icon(Icons.star)),
-        BottomNavigationBarItem(icon: Icon(Icons.settings)),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.paste), label: 'Jobs'),
+        BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Active'),
+        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
       ],
     );
   }
@@ -22,8 +22,8 @@ Widget bottomNav({
     return BottomNavigationBar(
       currentIndex: index,
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.login)),
-        BottomNavigationBarItem(icon: Icon(Icons.edit)),
+        BottomNavigationBarItem(icon: Icon(Icons.login), label: 'Login'),
+        BottomNavigationBarItem(icon: Icon(Icons.edit), label: 'Sign Up'),
       ],
     );
   }

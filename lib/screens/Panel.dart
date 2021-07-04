@@ -56,7 +56,6 @@ class _PanelState extends State<Panel> {
     ));
   }
 
-  // TODO: ADD NAV BAR
   @override
   Widget build(BuildContext context) {
     return Scaffold(

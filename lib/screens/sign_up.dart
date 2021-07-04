@@ -148,7 +148,6 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  // TODO: ADD NAV BAR
   @override
   Widget build(BuildContext context) {
     return Scaffold(
