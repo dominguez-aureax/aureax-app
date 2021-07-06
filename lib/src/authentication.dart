@@ -1,17 +1,15 @@
 import 'dart:async';
-import 'package:aureax_app/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/login.dart';
-import '../screens/panel.dart';
-import '../screens/sign_up.dart';
-import '../screens/referral.dart';
-import '../screens/share.dart';
 import '../screens/splash_screen.dart';
+import '../screens/referral.dart';
+
+import '../widget/auth_nav.dart';
+import '../widget/login_nav.dart';
 
 import './database.dart';
 
@@ -22,11 +20,9 @@ class Authentication extends StatelessWidget {
         initialRoute: '/',
         routes: <String, WidgetBuilder>{
           '/': (context) => AuthenticationWrapper(),
-          '/login': (context) => Login(),
-          '/panel': (context) => Panel(),
-          '/signup': (context) => SignUp(),
+          '/login': (context) => LoginNav(),
+          '/auth': (context) => AuthNav(),
           '/referral': (context) => Referral(),
-          '/share': (context) => Share(),
         },
         theme: ThemeData(
             brightness: Brightness.dark,
@@ -72,14 +68,9 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   void initState() {
     // display the build
     super.initState();
-    onStart();
-  }
-
-  // Statup dynamic links and authentication state
-  void onStart() async {
-    await Future.delayed(const Duration(seconds: 6));
-    initDynamicLinks();
-    getAuthenticationStatus(context);
+    Future.delayed(Duration.zero, () {
+      getAuthenticationStatus();
+    });
   }
 
   // Check for dynamic link calls
@@ -112,20 +103,20 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   }
 
   // get authentication status of current user
-  void getAuthenticationStatus(BuildContext context) async {
+  void getAuthenticationStatus() async {
     // Obtain the nearest Providewr of User up the widget tree.
     var firebaseUser = Provider.of<User?>(context, listen: false);
 
     if (firebaseUser != null) {
-      await Navigator.pushReplacementNamed(context, '/panel');
+      debugPrint('get to auth');
+      await Navigator.pushReplacementNamed(context, '/auth');
     }
-
+    debugPrint('get to login');
     await Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
   Widget build(BuildContext context) {
-    initDynamicLinks();
     return SplashScreen();
   }
 }

@@ -17,6 +17,21 @@ class _CampaignState extends State<Campaign> {
     super.initState();
   }
 
+  Widget buildBody() {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildTitle(),
+        ],
+      )
+    );
+  }
+
   Widget buildTitle() {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
@@ -38,20 +53,6 @@ class _CampaignState extends State<Campaign> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        key: scaffoldKey,
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildTitle(),
-            ],
-          ),
-        ));
+    return buildBody();
   }
 }

@@ -28,7 +28,6 @@ class _AuthNavState extends State<AuthNav> {
       currentIndex: selectedIndex,
       onTap: _onItemTapped,
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Login'),
         BottomNavigationBarItem(icon: Icon(Icons.admin_panel_settings), label: 'Panel'),
         BottomNavigationBarItem(icon: Icon(Icons.paste), label: 'Jobs'),
         BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Active'),

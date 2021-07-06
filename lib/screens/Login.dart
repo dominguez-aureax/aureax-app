@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
-  Widget buildBody() {
+  Widget buildBody(BuildContext context) {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -78,7 +78,6 @@ class _LoginState extends State<Login> {
                     buildCheckbox(),
                     buildEmailButton(context, _formKey),
                     buildGoogleButton(_formKey),
-                    buildSignUp(),
                   ],
                 ))));
   }
@@ -239,6 +238,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return buildBody();
+    return buildBody(context);
   }
 }
