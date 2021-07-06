@@ -1,4 +1,3 @@
-import 'package:aureax_app/widget/bottom_nav.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -104,7 +103,6 @@ class _PanelState extends State<Panel> {
                   ))
             ],
           )),
-      bottomNavigationBar: bottomNav(current: ROUTE_NAME),
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../src/authentication.dart';
 
-import '../widget/bottom_nav.dart';
+import './sign_up.dart';
 
 const ROUTE_NAME = '/login';
 
@@ -21,10 +21,26 @@ class _LoginState extends State<Login> {
   String password = '';
   bool? keepSignIn;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  var selectedIndex = 0;
   @override
   void initState() {
     super.initState();
+  }
+
+  Widget buildBody() {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildTitle(),
+          buildForm(),
+        ],
+      ),
+    );
   }
 
   Widget buildTitle() {
@@ -201,26 +217,28 @@ class _LoginState extends State<Login> {
           ],
         ));
   }
+  
+  Widget buildNav() {
+
+    void _onItemTapped (int index) {
+      setState(() {
+        debugPrint('ON ITEM TAPPED - $index');
+        selectedIndex = index;
+      });
+    }
+
+    return BottomNavigationBar(
+      currentIndex: selectedIndex,
+      onTap: _onItemTapped,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Login'),
+        BottomNavigationBarItem(icon: Icon(Icons.edit), label: 'Sign Up'),
+      ]
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      key: scaffoldKey,
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildTitle(),
-            buildForm(),
-          ],
-        ),
-      ),
-      bottomNavigationBar: bottomNav(current: ROUTE_NAME),
-    );
+    return buildBody();
   }
 }

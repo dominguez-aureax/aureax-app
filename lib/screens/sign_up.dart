@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../src/authentication.dart';
 
 import '../widget/button.dart';
-import '../widget/bottom_nav.dart';
 
 const ROUTE_NAME = '/signup';
 
@@ -203,7 +202,6 @@ class _SignUpState extends State<SignUp> {
                   ))
             ],
           )),
-      bottomNavigationBar: bottomNav(current: ROUTE_NAME),
     );
   }
 }
