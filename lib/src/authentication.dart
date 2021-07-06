@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/splash_screen.dart';
 import '../screens/referral.dart';
 
 import '../widget/auth_nav.dart';
@@ -14,7 +13,7 @@ import '../widget/login_nav.dart';
 import './database.dart';
 
 class Authentication extends StatelessWidget {
-  Widget initApp() {
+  Widget initApp(context) {
     return MaterialApp(
         title: 'Aureax',
         initialRoute: '/',
@@ -49,7 +48,7 @@ class Authentication extends StatelessWidget {
             context.read<AuthenticationService>().authStateChanges,
         initialData: null,
       ),
-    ], child: initApp());
+    ], child: initApp(context));
   }
 }
 
@@ -68,9 +67,6 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   void initState() {
     // display the build
     super.initState();
-    Future.delayed(Duration.zero, () {
-      getAuthenticationStatus();
-    });
   }
 
   // Check for dynamic link calls
@@ -117,7 +113,13 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return SplashScreen();
+    var firebaseUser = context.watch<User?>();
+
+    if (firebaseUser != null) {
+      return AuthNav();
+    }
+
+    return LoginNav();
   }
 }
 
