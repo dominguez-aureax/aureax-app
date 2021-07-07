@@ -54,13 +54,12 @@ class _PanelState extends State<Panel> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 createButton(
-                  onPressed: () {
-                    debugPrint('PANEL --- SIGNING OUT');
-                    context.read<AuthenticationService>().signOut();
-                  },
-                  child: Text('Log Out'),
-                  context: context
-                ),
+                    onPressed: () {
+                      debugPrint('PANEL --- SIGNING OUT');
+                      context.read<AuthenticationService>().signOut();
+                    },
+                    child: Text('Log Out'),
+                    context: context),
               ],
             ),
           ),

@@ -19,17 +19,16 @@ class _CampaignState extends State<Campaign> {
 
   Widget buildBody() {
     return Container(
-      width: double.infinity,
-      height: double.infinity,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildTitle(),
-        ],
-      )
-    );
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildTitle(),
+          ],
+        ));
   }
 
   Widget buildTitle() {

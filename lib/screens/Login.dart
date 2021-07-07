@@ -216,10 +216,9 @@ class _LoginState extends State<Login> {
           ],
         ));
   }
-  
-  Widget buildNav() {
 
-    void _onItemTapped (int index) {
+  Widget buildNav() {
+    void _onItemTapped(int index) {
       setState(() {
         debugPrint('ON ITEM TAPPED - $index');
         selectedIndex = index;
@@ -227,13 +226,12 @@ class _LoginState extends State<Login> {
     }
 
     return BottomNavigationBar(
-      currentIndex: selectedIndex,
-      onTap: _onItemTapped,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Login'),
-        BottomNavigationBarItem(icon: Icon(Icons.edit), label: 'Sign Up'),
-      ]
-    );
+        currentIndex: selectedIndex,
+        onTap: _onItemTapped,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Login'),
+          BottomNavigationBarItem(icon: Icon(Icons.edit), label: 'Sign Up'),
+        ]);
   }
 
   @override

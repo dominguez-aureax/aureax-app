@@ -23,13 +23,12 @@ class _LoginNavState extends State<LoginNav> {
     }
 
     return BottomNavigationBar(
-      currentIndex: selectedIndex,
-      onTap: _onItemTapped,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Login'),
-        BottomNavigationBarItem(icon: Icon(Icons.edit), label: 'Sign Up'),
-      ]
-    );
+        currentIndex: selectedIndex,
+        onTap: _onItemTapped,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Login'),
+          BottomNavigationBarItem(icon: Icon(Icons.edit), label: 'Sign Up'),
+        ]);
   }
 
   @override
@@ -38,7 +37,7 @@ class _LoginNavState extends State<LoginNav> {
       Login(),
       SignUp(),
     ];
-    
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
