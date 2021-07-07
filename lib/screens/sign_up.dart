@@ -1,8 +1,11 @@
-import 'package:aureax_app/src/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../src/authentication.dart';
+
 import '../widget/button.dart';
+
+const ROUTE_NAME = '/signup';
 
 class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
@@ -32,7 +35,7 @@ class _SignUpState extends State<SignUp> {
         },
         onSaved: (String? value) {
           if (value != null) {
-            name = value;
+            name = value.trim();
           }
         });
   }
@@ -50,7 +53,7 @@ class _SignUpState extends State<SignUp> {
         },
         onSaved: (String? value) {
           if (value != null) {
-            email = value;
+            email = value.trim();
           }
         });
   }
@@ -65,7 +68,7 @@ class _SignUpState extends State<SignUp> {
       },
       onSaved: (String? value) {
         if (value != null) {
-          phone = value;
+          phone = value.trim();
         }
       },
     );
@@ -88,7 +91,7 @@ class _SignUpState extends State<SignUp> {
       },
       onSaved: (String? value) {
         if (value != null) {
-          password = value;
+          password = value.trim();
         }
       },
     );
@@ -147,57 +150,58 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Container(
-            width: double.infinity,
-            height: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-                          child: GestureDetector(
-                              onTap: () {
-                                debugPrint('HomePage router');
-                                Navigator.pushNamed(context, '/');
-                              },
-                              child: Text(
-                                'Sign Up',
-                                style: Theme.of(context).textTheme.headline1,
-                              ))),
-                    ],
-                  ),
+      resizeToAvoidBottomInset: false,
+      body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+                        child: GestureDetector(
+                            onTap: () {
+                              debugPrint('HomePage router');
+                              Navigator.pushNamed(context, '/');
+                            },
+                            child: Text(
+                              'Sign Up',
+                              style: Theme.of(context).textTheme.headline1,
+                            ))),
+                  ],
                 ),
-                Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: SingleChildScrollView(
-                      child: Form(
-                          key: formKey,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              buildName(),
-                              buildEmail(),
-                              buildPhone(),
-                              buildPassword(),
-                              buildConfirmPassword(),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                                child: buildButton(context),
-                              ),
-                            ],
-                          )),
-                    ))
-              ],
-            )));
+              ),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: SingleChildScrollView(
+                    child: Form(
+                        key: formKey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            buildName(),
+                            buildEmail(),
+                            buildPhone(),
+                            buildPassword(),
+                            buildConfirmPassword(),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                              child: buildButton(context),
+                            ),
+                          ],
+                        )),
+                  ))
+            ],
+          )),
+    );
   }
 }

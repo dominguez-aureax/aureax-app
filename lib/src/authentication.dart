@@ -1,60 +1,54 @@
 import 'dart:async';
-import 'package:aureax_app/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/login.dart';
-import '../screens/panel.dart';
-import '../screens/sign_up.dart';
 import '../screens/referral.dart';
-import '../screens/share.dart';
-import '../screens/splash_screen.dart';
+
+import '../widget/auth_nav.dart';
+import '../widget/login_nav.dart';
 
 import './database.dart';
 
 class Authentication extends StatelessWidget {
+  Widget initApp(context) {
+    return MaterialApp(
+        title: 'Aureax',
+        initialRoute: '/',
+        routes: <String, WidgetBuilder>{
+          '/': (context) => AuthenticationWrapper(),
+          '/login': (context) => LoginNav(),
+          '/auth': (context) => AuthNav(),
+          '/referral': (context) => Referral(),
+        },
+        theme: ThemeData(
+            brightness: Brightness.dark,
+            backgroundColor: const Color(0xFF232931),
+            primaryColor: const Color(0xFFeeeeee),
+            accentColor: const Color(0xFF45aff0),
+            fontFamily: GoogleFonts.roboto().fontFamily,
+            textTheme: TextTheme(
+              headline1: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
+              subtitle1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+              bodyText1:
+                  TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+            )));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<AuthenticationService>(
-          create: (_) => AuthenticationService(FirebaseAuth.instance),
-        ),
-        StreamProvider(
-          create: (context) =>
-              context.read<AuthenticationService>().authStateChanges,
-          initialData: null,
-        ),
-      ],
-      child: MaterialApp(
-          title: 'Aureax',
-          initialRoute: '/',
-          routes: <String, WidgetBuilder>{
-            '/': (context) => AuthenticationWrapper(),
-            '/login': (context) => Login(),
-            '/panel': (context) => Panel(),
-            '/signup': (context) => SignUp(),
-            '/referral': (context) => Referral(),
-            '/share': (context) => Share(),
-          },
-          theme: ThemeData(
-              brightness: Brightness.dark,
-              backgroundColor: const Color(0xFF232931),
-              primaryColor: const Color(0xFFeeeeee),
-              accentColor: const Color(0xFF45aff0),
-              fontFamily: GoogleFonts.roboto().fontFamily,
-              textTheme: TextTheme(
-                headline1:
-                    TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600),
-                subtitle1:
-                    TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
-                bodyText1:
-                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
-              ))),
-    );
+    return MultiProvider(providers: [
+      Provider<AuthenticationService>(
+        create: (_) => AuthenticationService(FirebaseAuth.instance),
+      ),
+      StreamProvider(
+        create: (context) =>
+            context.read<AuthenticationService>().authStateChanges,
+        initialData: null,
+      ),
+    ], child: initApp(context));
   }
 }
 
@@ -73,16 +67,9 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   void initState() {
     // display the build
     super.initState();
-    onStart();
   }
 
-  // Example of
-  void onStart() async {
-    await Future.delayed(const Duration(seconds: 6));
-    initDynamicLinks();
-    getAuthenticationStatus(context);
-  }
-
+  // Check for dynamic link calls
   void initDynamicLinks() async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
@@ -111,37 +98,52 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     debugPrint('A DYNAMIC LINK WAS NOT FOUND');
   }
 
-  void getAuthenticationStatus(context) async {
-    var firebaseUser = context.watch<User?>();
+  // get authentication status of current user
+  void getAuthenticationStatus() async {
+    // Obtain the nearest Providewr of User up the widget tree.
+    var firebaseUser = Provider.of<User?>(context, listen: false);
 
     if (firebaseUser != null) {
-      await Navigator.pushReplacementNamed(context, '/login');
+      debugPrint('get to auth');
+      await Navigator.pushReplacementNamed(context, '/auth');
     }
-
-    await Navigator.pushReplacementNamed(context, '/signup');
+    debugPrint('get to login');
+    await Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
   Widget build(BuildContext context) {
-    initDynamicLinks();
+    var firebaseUser = context.watch<User?>();
 
-    return SplashScreen();
+    if (firebaseUser != null) {
+      return AuthNav();
+    }
+
+    return LoginNav();
   }
 }
 
+// Authentication Service used for login/signup.
 class AuthenticationService {
+  // Entry point of Firebase Authentication SDK
   final FirebaseAuth _firebaseAuth;
+  // Referance to FireStore database
   final DatabaseReference db = DatabaseReference();
+  //  Unique Dynamic Link
   String? linkMessage = 'NO LINK';
 
+  // Constructor
   AuthenticationService(this._firebaseAuth);
 
+  // Bind user to follow when authenticationh state changes.
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
+  // get the current user's name
   String? getUser() {
     return _firebaseAuth.currentUser!.displayName;
   }
 
+  // initialize the basic dynamic link
   Future<void> initDynamicLink() async {
     var uri = await getLink();
     debugPrint('URL: ${uri.toString()}');

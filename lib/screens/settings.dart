@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-const ROUTE_NAME = 'referral';
+const ROUTE_NAME = '/settings';
 
-class Referral extends StatefulWidget {
-  Referral({Key? key}) : super(key: key);
+class Settings extends StatefulWidget {
+  Settings({Key? key}) : super(key: key);
 
   @override
-  _ReferralState createState() => _ReferralState();
+  _SettingsState createState() => _SettingsState();
 }
 
-class _ReferralState extends State<Referral> {
+class _SettingsState extends State<Settings> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -17,7 +17,7 @@ class _ReferralState extends State<Referral> {
     super.initState();
   }
 
-  Widget buildTitle(BuildContext context) {
+  Widget buildTitle() {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
       child: Row(
@@ -27,7 +27,7 @@ class _ReferralState extends State<Referral> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
             child: Text(
-              'YOU WERE REFERRED!~',
+              'TODO: FINISH SETTINGS PAGE',
               style: Theme.of(context).textTheme.headline1,
             ),
           )
@@ -39,6 +39,7 @@ class _ReferralState extends State<Referral> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         key: scaffoldKey,
         body: Container(
           width: double.infinity,
@@ -48,7 +49,7 @@ class _ReferralState extends State<Referral> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildTitle(context),
+              buildTitle(),
             ],
           ),
         ));

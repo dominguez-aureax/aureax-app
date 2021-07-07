@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'src/authentication.dart';
 
 Future<void> main() async {
+  // Allow widgets to be Binded
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Firebase
   await Firebase.initializeApp();
   runApp(Authentication());
 }

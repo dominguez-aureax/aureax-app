@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../widget/button.dart';
 import '../src/authentication.dart';
 
+//TODO: REPLACE LOGIC TO SETTINGS SCREEN
 class Share extends StatefulWidget {
   Share({Key? key}) : super(key: key);
 

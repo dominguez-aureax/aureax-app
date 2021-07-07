@@ -6,6 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../widget/button.dart';
 import '../src/authentication.dart';
 
+const ROUTE_NAME = '/panel';
+
 class Panel extends StatefulWidget {
   Panel({Key? key}) : super(key: key);
 
@@ -19,6 +21,51 @@ class _PanelState extends State<Panel> {
   @override
   void initState() {
     super.initState();
+  }
+
+  //TODO: ADD DATA TABLES
+
+  Widget buildBody() {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildTitle(context),
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'USER: ${context.read<AuthenticationService>().getUser()}',
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                createButton(
+                    onPressed: () {
+                      debugPrint('PANEL --- SIGNING OUT');
+                      context.read<AuthenticationService>().signOut();
+                    },
+                    child: Text('Log Out'),
+                    context: context),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget buildTitle(BuildContext context) {
@@ -53,51 +100,6 @@ class _PanelState extends State<Panel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: scaffoldKey,
-        body: Container(
-            width: double.infinity,
-            height: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildTitle(context),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          'USER: ${context.read<AuthenticationService>().getUser()}'),
-                      // buildLink(context),
-                    ],
-                  ),
-                ),
-                Padding(
-                    padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        createButton(
-                            onPressed: () {
-                              context.read<AuthenticationService>().signOut();
-                            },
-                            child: Text('Log Out'),
-                            context: context),
-                        createButton(
-                            onPressed: () {
-                              debugPrint('TRAVELING TO SHARE SCREEEN');
-                              Navigator.pushNamed(context, '/share');
-                            },
-                            child: Text('Share'),
-                            context: context),
-                      ],
-                    ))
-              ],
-            )));
+    return buildBody();
   }
 }
