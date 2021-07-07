@@ -5,8 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../src/authentication.dart';
 
-import './sign_up.dart';
-
 const ROUTE_NAME = '/login';
 
 class Login extends StatefulWidget {
