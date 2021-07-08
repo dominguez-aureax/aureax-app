@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../widget/button.dart';
+import '../widget/card.dart';
+
 import '../src/authentication.dart';
 
 const ROUTE_NAME = '/panel';
@@ -23,8 +24,6 @@ class _PanelState extends State<Panel> {
     super.initState();
   }
 
-  //TODO: ADD DATA TABLES
-
   Widget buildBody() {
     return Container(
       width: double.infinity,
@@ -34,55 +33,118 @@ class _PanelState extends State<Panel> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildTitle(context),
-          Padding(
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'USER: ${context.read<AuthenticationService>().getUser()}',
-                )
-              ],
-            ),
+          buildTitleBar(),
+          buildData(),
+        ],
+      ),
+    );
+  }
+
+  Padding buildTitleBar() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 40, 0, 20),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          createImage(),
+          createText(),
+          createMenu(),
+        ],
+      ),
+    );
+  }
+
+  Container createImage() {
+    return Container(
+      width: 80,
+      height: 80,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(shape: BoxShape.circle),
+      child: Image.network('assets/loading.gif'),
+    );
+  }
+
+  Padding createText() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Text(
+            '${context.read<AuthenticationService>().getUser()}',
+            style: Theme.of(context).textTheme.headline1,
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                createButton(
-                    onPressed: () {
-                      debugPrint('PANEL --- SIGNING OUT');
-                      context.read<AuthenticationService>().signOut();
-                    },
-                    child: Text('Log Out'),
-                    context: context),
-              ],
-            ),
+          Text(
+            'Admin/Title',
+            style: Theme.of(context).textTheme.subtitle1,
           ),
         ],
       ),
     );
   }
 
-  Widget buildTitle(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+  Widget createMenu() {
+    return Expanded(
+      child: Align(
+        alignment: Alignment(0, 0),
         child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-                child: Text(
-                  'Panel',
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-              )
-            ]));
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+              child: Icon(Icons.menu,
+                  color: Theme.of(context).primaryColor, size: 50),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildData() {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            createCard(
+                icon: Icon(Icons.people,
+                    color: Theme.of(context).primaryColor, size: 80),
+                text: Text('Members',
+                    style: Theme.of(context).textTheme.bodyText1)),
+            createCard(
+              icon: Icon(Icons.person_add,
+                  color: Theme.of(context).primaryColor, size: 80),
+              text: Text('Referrals',
+                  style: Theme.of(context).textTheme.bodyText1),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            createCard(
+              icon: Icon(Icons.library_add,
+                  color: Theme.of(context).primaryColor, size: 80),
+              text: Text('Edit Jobs',
+                  style: Theme.of(context).textTheme.bodyText1),
+            ),
+            createCard(
+              icon: Icon(Icons.star_border,
+                  color: Theme.of(context).primaryColor, size: 80),
+              text: Text('Edit Campaigns',
+                  style: Theme.of(context).textTheme.bodyText1),
+            )
+          ],
+        )
+      ],
+    );
   }
 
   Widget buildLink(BuildContext context) {
