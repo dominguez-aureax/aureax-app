@@ -16,6 +16,9 @@ class _JobsState extends State<Jobs> {
   void initState() {
     super.initState();
   }
+  //TODO: ADD TITLE
+  //TODO: ADD FILTERS
+  //TODO: ADD LISTS
 
   Widget buildTitle() {
     return Padding(

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../widget/button.dart';
+
+import '../src/authentication.dart';
+
 const ROUTE_NAME = '/settings';
 
 class Settings extends StatefulWidget {
@@ -16,6 +20,9 @@ class _SettingsState extends State<Settings> {
   void initState() {
     super.initState();
   }
+
+  //TODO: ADD TITLE
+  //TODO: ADD SETTINGS
 
   Widget buildTitle() {
     return Padding(
@@ -36,6 +43,25 @@ class _SettingsState extends State<Settings> {
     );
   }
 
+  Widget buildLogOut(context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          createButton(
+              onPressed: () {
+                debugPrint('PANEL --- SIGNING OUT');
+                context.read<AuthenticationService>().signOut();
+              },
+              child: Text('Log Out'),
+              context: context),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,9 +74,7 @@ class _SettingsState extends State<Settings> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildTitle(),
-            ],
+            children: [buildTitle(), buildLogOut(context)],
           ),
         ));
   }

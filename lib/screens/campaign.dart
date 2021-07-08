@@ -17,6 +17,9 @@ class _CampaignState extends State<Campaign> {
     super.initState();
   }
 
+  //TODO: ADD TITLE
+  //TODO: ADD ACTIVE CAMPAIGN
+
   Widget buildBody() {
     return Container(
         width: double.infinity,
