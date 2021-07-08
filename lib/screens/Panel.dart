@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../widget/button.dart';
 import '../widget/card.dart';
 
 import '../src/authentication.dart';
