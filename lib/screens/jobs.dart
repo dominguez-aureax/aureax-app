@@ -1,4 +1,3 @@
-import 'package:aureax_app/widget/filter.dart';
 import 'package:flutter/material.dart';
 
 const ROUTE_NAME = '/jobs';
@@ -28,13 +27,11 @@ class _JobsState extends State<Jobs> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           buildTitle(),
-          //buildLists(),
         ],
       ),
     );
   }
 
-  //TODO: ADD FILTERS
   //TODO: ADD LISTS
 
   Widget buildTitle() {
@@ -54,20 +51,6 @@ class _JobsState extends State<Jobs> {
         ],
       ),
     );
-  }
-
-  Widget buildFilters(context) {
-    return Text('nice');
-  }
-
-  Widget buildList(context) {
-    return Expanded( child: ListView(
-      scrollDirection: Axis.horizontal,
-      children: [
-        createFilter(active: true, text: 'Most Recent', context: context),
-        createFilter(active: false, text: 'Featured Campaign', context: context),
-      ],
-    ));
   }
 
   @override
