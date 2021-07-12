@@ -62,7 +62,7 @@ class _PanelState extends State<Panel> {
       height: 80,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(shape: BoxShape.circle),
-      child: Image.network('assets/loading.gif'),
+      child: Image.asset('assets/cardinal.jpeg'),
     );
   }
 

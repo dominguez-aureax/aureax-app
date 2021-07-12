@@ -13,7 +13,6 @@ class AuthNav extends StatefulWidget {
 }
 
 class _AuthNavState extends State<AuthNav> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   var selectedIndex = 0;
 
   Widget buildNav() {
@@ -47,8 +46,6 @@ class _AuthNavState extends State<AuthNav> {
     ];
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      key: scaffoldKey,
       body: _pages.elementAt(selectedIndex),
       bottomNavigationBar: buildNav(),
     );
