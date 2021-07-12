@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widget/post.dart';
+
 const ROUTE_NAME = '/jobs';
 
 class Jobs extends StatefulWidget {
@@ -27,28 +29,62 @@ class _JobsState extends State<Jobs> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           buildTitle(),
+          buildFilters(),
+          buildLists(),
         ],
       ),
     );
   }
 
-  //TODO: ADD LISTS
-
   Widget buildTitle() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+      padding: EdgeInsets.fromLTRB(0, 40, 0, 20),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-            child: Text(
-              'TODO: Postings',
-              style: Theme.of(context).textTheme.headline1,
-            ),
-          )
+          Text(
+            'Postings',
+            style: Theme.of(context).textTheme.headline1,
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget buildFilters() {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [Text('TODO: ADD FILTERS')],
+    );
+  }
+
+  Widget buildLists() {
+    return ListView(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      children: [
+        buildCard(),
+        buildCard(),
+        buildCard(),
+      ],
+    );
+  }
+
+  Widget buildCard() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 0, 10, 10),
+      child: Container(
+        width: double.infinity,
+        height: 140,
+        decoration: BoxDecoration(color: Color(0xFF232931)),
+        child: createPost(
+            title: 'Manager - Business Dev',
+            price: '60,000 Anually',
+            location: 'Charlotte, NC',
+            link: 'Link to Job',
+            context: context),
       ),
     );
   }
