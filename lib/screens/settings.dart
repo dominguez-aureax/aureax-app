@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widget/button.dart';
 
@@ -43,7 +44,7 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Widget buildLogOut(context) {
+  Widget buildLogOut() {
     return Padding(
       padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
       child: Column(
@@ -52,7 +53,7 @@ class _SettingsState extends State<Settings> {
         children: [
           createButton(
               onPressed: () {
-                debugPrint('PANEL --- SIGNING OUT');
+                debugPrint('SETTINGS --- SIGNING OUT');
                 context.read<AuthenticationService>().signOut();
               },
               child: Text('Log Out'),
@@ -74,7 +75,7 @@ class _SettingsState extends State<Settings> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [buildTitle(), buildLogOut(context)],
+            children: [buildTitle(), buildLogOut()],
           ),
         ));
   }
