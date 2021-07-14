@@ -139,8 +139,6 @@ class _SignUpState extends State<SignUp> {
         context
             .read<AuthenticationService>()
             .signUp(email, password, name, phone);
-
-        Navigator.pop(context);
       },
       child: Text('Sign Up'),
       context: context,
