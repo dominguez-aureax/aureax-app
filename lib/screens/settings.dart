@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../widget/button.dart';
@@ -44,6 +45,36 @@ class _SettingsState extends State<Settings> {
     );
   }
 
+  Widget buildID() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+      child:
+          Text('Unique ID - ${context.read<AuthenticationService>().getID()}'),
+    );
+  }
+
+  Widget buildCopyLink() {
+    var link = context.read<AuthenticationService>().linkMessage;
+    return Padding(
+      padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          createButton(
+            onPressed: () {
+              debugPrint('SETTINGS --- COPYING UNIQUE LINK');
+              debugPrint('Link copied: $link');
+              Clipboard.setData(ClipboardData(text: link));
+            },
+            child: Text('Copy Referral Link'),
+            context: context,
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget buildLogOut() {
     return Padding(
       padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
@@ -75,7 +106,7 @@ class _SettingsState extends State<Settings> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [buildTitle(), buildLogOut()],
+            children: [buildTitle(), buildID(), buildCopyLink() ,buildLogOut()],
           ),
         ));
   }

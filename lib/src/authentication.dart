@@ -86,7 +86,8 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
         );
       }
     }, onError: (OnLinkErrorException e) async {
-      debugPrint('AUTHENTICATION STATE --- AN ERROR HAS OCCURRED WITH A DYNAMIC LINK');
+      debugPrint(
+          'AUTHENTICATION STATE --- AN ERROR HAS OCCURRED WITH A DYNAMIC LINK');
       debugPrint(e.message);
     });
 
@@ -131,6 +132,10 @@ class AuthenticationService {
   // get the current user's name
   String? getUser() {
     return _firebaseAuth.currentUser!.displayName;
+  }
+
+  String? getID() {
+    return _firebaseAuth.currentUser!.uid;
   }
 
   // initialize the basic dynamic link
