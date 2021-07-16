@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:aureax_app/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class Authentication extends StatelessWidget {
         initialRoute: '/',
         routes: <String, WidgetBuilder>{
           '/': (context) => AuthenticationWrapper(),
+          '/loading': (context) => SplashScreen(),
           '/login': (context) => LoginNav(),
           '/auth': (context) => AuthNav(),
           '/referral': (context) => Referral(),
@@ -67,6 +69,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   void initState() {
     // display the build
     super.initState();
+    initDynamicLinks();
   }
 
   // Check for dynamic link calls
@@ -76,14 +79,15 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
       var deepLink = dynamicLink?.link;
 
       if (deepLink != null) {
-        debugPrint('A DYNAMIC LINK OPENED THIS APP!');
+        debugPrint('AUTHENTICATION STATE --- A DYNAMIC LINK WAS DETECTED');
         await Navigator.pushReplacementNamed(
           context,
           '/referral',
         );
       }
     }, onError: (OnLinkErrorException e) async {
-      debugPrint('onLinkError: ');
+      debugPrint(
+          'AUTHENTICATION STATE --- AN ERROR HAS OCCURRED WITH A DYNAMIC LINK');
       debugPrint(e.message);
     });
 
@@ -91,24 +95,11 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     var deepLink = data?.link;
 
     if (deepLink != null) {
-      debugPrint('A DYNAMIC LINK OPENED THIS APP!');
+      debugPrint('AUTHENTICATION STATE --- A DYNAMIC LINK OPENED THIS APP!');
       await Navigator.pushNamed(context, '/referral');
     }
 
-    debugPrint('A DYNAMIC LINK WAS NOT FOUND');
-  }
-
-  // get authentication status of current user
-  void getAuthenticationStatus() async {
-    // Obtain the nearest Providewr of User up the widget tree.
-    var firebaseUser = Provider.of<User?>(context, listen: false);
-
-    if (firebaseUser != null) {
-      debugPrint('get to auth');
-      await Navigator.pushReplacementNamed(context, '/auth');
-    }
-    debugPrint('get to login');
-    await Navigator.pushReplacementNamed(context, '/login');
+    debugPrint('AUTHENTICATION STATE --- A DYNAMIC LINK WAS NOT FOUND');
   }
 
   @override
@@ -141,6 +132,10 @@ class AuthenticationService {
   // get the current user's name
   String? getUser() {
     return _firebaseAuth.currentUser!.displayName;
+  }
+
+  String? getID() {
+    return _firebaseAuth.currentUser!.uid;
   }
 
   // initialize the basic dynamic link
@@ -198,8 +193,8 @@ class AuthenticationService {
   }
 
   void signOut() async {
-    debugPrint('Signing out...');
+    debugPrint('AUTHENTICAITON SERVICE --- ATTEMPTING TO SIGN OUT...');
     await FirebaseAuth.instance.signOut();
-    debugPrint('Sign Out Complete!!!');
+    debugPrint('AUTHENTICATION SERVICE --- SIGN OUT COMPLETE.');
   }
 }
