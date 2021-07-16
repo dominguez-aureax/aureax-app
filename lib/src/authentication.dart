@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:aureax_app/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class Authentication extends StatelessWidget {
         initialRoute: '/',
         routes: <String, WidgetBuilder>{
           '/': (context) => AuthenticationWrapper(),
+          '/loading': (context) => SplashScreen(),
           '/login': (context) => LoginNav(),
           '/auth': (context) => AuthNav(),
           '/referral': (context) => Referral(),
@@ -67,6 +69,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   void initState() {
     // display the build
     super.initState();
+    initDynamicLinks();
   }
 
   // Check for dynamic link calls
@@ -96,19 +99,6 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     }
 
     debugPrint('A DYNAMIC LINK WAS NOT FOUND');
-  }
-
-  // get authentication status of current user
-  void getAuthenticationStatus() async {
-    // Obtain the nearest Providewr of User up the widget tree.
-    var firebaseUser = Provider.of<User?>(context, listen: false);
-
-    if (firebaseUser != null) {
-      debugPrint('get to auth');
-      await Navigator.pushReplacementNamed(context, '/auth');
-    }
-    debugPrint('get to login');
-    await Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
