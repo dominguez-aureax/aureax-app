@@ -111,7 +111,7 @@ class _SettingsState extends State<Settings> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [buildTitle(), buildID(), buildCopyLink() ,buildLogOut()],
+            children: [buildTitle(), buildID(), buildCopyLink(), buildLogOut()],
           ),
         ));
   }
