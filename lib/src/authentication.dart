@@ -79,14 +79,14 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
       var deepLink = dynamicLink?.link;
 
       if (deepLink != null) {
-        debugPrint('A DYNAMIC LINK OPENED THIS APP!');
+        debugPrint('AUTHENTICATION STATE --- A DYNAMIC LINK WAS DETECTED');
         await Navigator.pushReplacementNamed(
           context,
           '/referral',
         );
       }
     }, onError: (OnLinkErrorException e) async {
-      debugPrint('onLinkError: ');
+      debugPrint('AUTHENTICATION STATE --- AN ERROR HAS OCCURRED WITH A DYNAMIC LINK');
       debugPrint(e.message);
     });
 
@@ -94,11 +94,11 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     var deepLink = data?.link;
 
     if (deepLink != null) {
-      debugPrint('A DYNAMIC LINK OPENED THIS APP!');
+      debugPrint('AUTHENTICATION STATE --- A DYNAMIC LINK OPENED THIS APP!');
       await Navigator.pushNamed(context, '/referral');
     }
 
-    debugPrint('A DYNAMIC LINK WAS NOT FOUND');
+    debugPrint('AUTHENTICATION STATE --- A DYNAMIC LINK WAS NOT FOUND');
   }
 
   @override
@@ -188,8 +188,8 @@ class AuthenticationService {
   }
 
   void signOut() async {
-    debugPrint('Signing out...');
+    debugPrint('AUTHENTICAITON SERVICE --- ATTEMPTING TO SIGN OUT...');
     await FirebaseAuth.instance.signOut();
-    debugPrint('Sign Out Complete!!!');
+    debugPrint('AUTHENTICATION SERVICE --- SIGN OUT COMPLETE.');
   }
 }
