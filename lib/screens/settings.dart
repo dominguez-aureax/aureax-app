@@ -1,3 +1,4 @@
+import 'package:aureax_app/widget/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -63,9 +64,13 @@ class _SettingsState extends State<Settings> {
         children: [
           createButton(
             onPressed: () {
+              var snackbar = createSnackBar(text: 'Link copied!');
+
               debugPrint('SETTINGS --- COPYING UNIQUE LINK');
               debugPrint('Link copied: $link');
               Clipboard.setData(ClipboardData(text: link));
+
+              ScaffoldMessenger.of(context).showSnackBar(snackbar);
             },
             child: Text('Copy Referral Link'),
             context: context,
