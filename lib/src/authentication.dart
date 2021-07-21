@@ -65,7 +65,8 @@ class AuthenticationWrapper extends StatefulWidget {
   State createState() => _AuthenticationWrapperState();
 }
 
-class _AuthenticationWrapperState extends State<AuthenticationWrapper> with WidgetsBindingObserver {
+class _AuthenticationWrapperState extends State<AuthenticationWrapper>
+    with WidgetsBindingObserver {
   final DynamicLinkService _dynamicLinkService = DynamicLinkService();
   Timer? _timerLink;
 
@@ -77,7 +78,8 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> with Widg
     initDynamicLinks();
   }
 
-  @override void didChangeAppLifecycleState(AppLifecycleState state) async {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.resumed) {
       await _dynamicLinkService.handleDynamicLinks();
     }
@@ -147,7 +149,7 @@ class AuthenticationService {
 
   // Constructor
   AuthenticationService(this._firebaseAuth) {
-    if(_firebaseAuth.currentUser != null) {
+    if (_firebaseAuth.currentUser != null) {
       initDynamicLink();
     }
   }
