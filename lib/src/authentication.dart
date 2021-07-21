@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:aureax_app/screens/splash_screen.dart';
+import 'package:aureax_app/src/dynamic_link_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -64,12 +65,33 @@ class AuthenticationWrapper extends StatefulWidget {
   State createState() => _AuthenticationWrapperState();
 }
 
-class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
+class _AuthenticationWrapperState extends State<AuthenticationWrapper>
+    with WidgetsBindingObserver {
+  final DynamicLinkService _dynamicLinkService = DynamicLinkService();
+  Timer? _timerLink;
+
   @override
   void initState() {
     // display the build
     super.initState();
+    WidgetsBinding.instance!.addObserver(this);
     initDynamicLinks();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      await _dynamicLinkService.handleDynamicLinks();
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    if (_timerLink != null) {
+      _timerLink!.cancel();
+    }
+    super.dispose();
   }
 
   // Check for dynamic link calls
@@ -121,10 +143,16 @@ class AuthenticationService {
   // Referance to FireStore database
   final DatabaseReference db = DatabaseReference();
   //  Unique Dynamic Link
-  String? linkMessage = 'NO LINK';
+  String? linkMessage;
+  // Dynamic Link Service
+  final DynamicLinkService _dynamicLinkService = DynamicLinkService();
 
   // Constructor
-  AuthenticationService(this._firebaseAuth);
+  AuthenticationService(this._firebaseAuth) {
+    if (_firebaseAuth.currentUser != null) {
+      initDynamicLink();
+    }
+  }
 
   // Bind user to follow when authenticationh state changes.
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
@@ -141,7 +169,6 @@ class AuthenticationService {
   // initialize the basic dynamic link
   Future<void> initDynamicLink() async {
     var uri = await getLink();
-    debugPrint('URL: ${uri.toString()}');
     linkMessage = uri.toString();
   }
 
@@ -150,16 +177,8 @@ class AuthenticationService {
     var user = _firebaseAuth.currentUser;
     // Get Uid
     var uid = user!.uid;
-    // Create link
-    var link = '?invitedby=' + uid;
-    debugPrint('link: $link');
-    // Create Dynamic Link
-    var params = DynamicLinkParameters(
-      uriPrefix: 'https://aureaxapp.page.link',
-      link: Uri.parse(link),
-    );
 
-    return await params.buildUrl();
+    return await _dynamicLinkService.createReferralLink(uid);
   }
 
   Future<String> signIn(String email, String password) async {
