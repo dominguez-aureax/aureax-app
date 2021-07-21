@@ -2,6 +2,19 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
 class DynamicLinkService {
+
+  Future<Uri> createReferralLink(String referralCode) async {
+    var dynamicLinkParameters = DynamicLinkParameters(
+      uriPrefix: 'https://aureaxapp.page.link', 
+      link: Uri.parse('/refer?code=$referralCode'),
+      androidParameters: AndroidParameters(
+        packageName: 'com.example.aureax_app'
+      )
+    );
+
+    return await dynamicLinkParameters.buildUrl();
+  }
+
   Future handleDynamicLinks() async {
     // STARTUP FROM DYNAMIC LINK LOGIC
     // Get initial dynamic link if the app is started using the link
