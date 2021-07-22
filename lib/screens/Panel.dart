@@ -112,11 +112,7 @@ class _PanelState extends State<Panel> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            createCard(
-                icon: Icon(Icons.people,
-                    color: Theme.of(context).primaryColor, size: 80),
-                text: Text('Members',
-                    style: Theme.of(context).textTheme.bodyText1)),
+            buildMemberCard(),
             createCard(
               icon: Icon(Icons.person_add,
                   color: Theme.of(context).primaryColor, size: 80),
@@ -144,6 +140,18 @@ class _PanelState extends State<Panel> {
           ],
         )
       ],
+    );
+  }
+
+  Widget buildMemberCard() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/member_data');
+      },
+      child: createCard(
+          icon: Icon(Icons.people,
+              color: Theme.of(context).primaryColor, size: 80),
+          text: Text('Members', style: Theme.of(context).textTheme.bodyText1)),
     );
   }
 
