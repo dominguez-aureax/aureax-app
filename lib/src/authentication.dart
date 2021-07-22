@@ -81,7 +81,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.resumed) {
-      await _dynamicLinkService.handleDynamicLinks();
+      await _dynamicLinkService.handleDynamicLinks(context);
     }
   }
 
