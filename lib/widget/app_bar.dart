@@ -6,6 +6,7 @@ AppBar createAppBar({
 }) {
   return AppBar(
     automaticallyImplyLeading: true,
+    backgroundColor: Theme.of(context).backgroundColor,
     title: Text(
       text,
       style: Theme.of(context).textTheme.headline1,

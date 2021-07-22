@@ -113,12 +113,7 @@ class _PanelState extends State<Panel> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             buildMemberCard(),
-            createCard(
-              icon: Icon(Icons.person_add,
-                  color: Theme.of(context).primaryColor, size: 80),
-              text: Text('Referrals',
-                  style: Theme.of(context).textTheme.bodyText1),
-            ),
+            buildReferralCard(),
           ],
         ),
         Row(
@@ -152,6 +147,19 @@ class _PanelState extends State<Panel> {
           icon: Icon(Icons.people,
               color: Theme.of(context).primaryColor, size: 80),
           text: Text('Members', style: Theme.of(context).textTheme.bodyText1)),
+    );
+  }
+
+  Widget buildReferralCard() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/referral_data');
+      },
+      child: createCard(
+        icon: Icon(Icons.person_add,
+            color: Theme.of(context).primaryColor, size: 80),
+        text: Text('Referrals', style: Theme.of(context).textTheme.bodyText1),
+      ),
     );
   }
 
