@@ -150,17 +150,16 @@ class _PanelState extends State<Panel> {
     );
   }
 
-  Widget buildReferralCard(){
+  Widget buildReferralCard() {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/referral_data');
       },
       child: createCard(
-              icon: Icon(Icons.person_add,
-                  color: Theme.of(context).primaryColor, size: 80),
-              text: Text('Referrals',
-                  style: Theme.of(context).textTheme.bodyText1),
-            ),
+        icon: Icon(Icons.person_add,
+            color: Theme.of(context).primaryColor, size: 80),
+        text: Text('Referrals', style: Theme.of(context).textTheme.bodyText1),
+      ),
     );
   }
 

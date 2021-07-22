@@ -2,7 +2,7 @@ import 'package:aureax_app/widget/app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ReferralData extends StatefulWidget {
-  ReferralData({Key? key}): super(key: key);
+  ReferralData({Key? key}) : super(key: key);
 
   @override
   _ReferralDataState createState() => _ReferralDataState();
@@ -29,7 +29,8 @@ class _ReferralDataState extends State<ReferralData> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SingleChildScrollView(
-            scrollDirection: Axis.horizontal, child: buildTable(),
+            scrollDirection: Axis.horizontal,
+            child: buildTable(),
           )
         ],
       ),
@@ -38,7 +39,7 @@ class _ReferralDataState extends State<ReferralData> {
 
   Widget buildTable() {
     return DataTable(
-      columns: buildColumns(), 
+      columns: buildColumns(),
       rows: buildRows(),
     );
   }
@@ -75,4 +76,4 @@ class _ReferralDataState extends State<ReferralData> {
   Widget build(BuildContext context) {
     return buildBody();
   }
-} 
+}
