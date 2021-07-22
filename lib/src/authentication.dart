@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:aureax_app/screens/member_data.dart';
 import 'package:aureax_app/screens/splash_screen.dart';
 import 'package:aureax_app/src/dynamic_link_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,6 +26,7 @@ class Authentication extends StatelessWidget {
           '/login': (context) => LoginNav(),
           '/auth': (context) => AuthNav(),
           '/referral': (context) => Referral(),
+          '/member_data': (context) => MemberData(),
         },
         theme: ThemeData(
             brightness: Brightness.dark,
