@@ -11,13 +11,14 @@ class DynamicLinkService {
     return await dynamicLinkParameters.buildUrl();
   }
 
-  Future handleDynamicLinks() async {
+  Future handleDynamicLinks(BuildContext context) async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
       var deepLink = dynamicLink?.link;
 
       if (deepLink != null) {
         debugPrint('HANDLE DYNAMIC LINK --- a dynamic link has been found.');
+        await Navigator.pushNamed(context, '/referral');
       }
     }, onError: (OnLinkErrorException e) async {
       debugPrint('HANDLE DYNAMIC LINK --- an error has been found.');
@@ -30,6 +31,7 @@ class DynamicLinkService {
     if (deepLink != null) {
       debugPrint(
           'HANDLE DYNAMIC LINK --- an initial dynamic link has been found.');
+      await Navigator.pushNamed(context, '/referral');
     }
   }
 
